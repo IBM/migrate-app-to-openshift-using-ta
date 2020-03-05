@@ -51,7 +51,7 @@ When the reader has completed this code pattern, they will understand how to:
 6. [Complete your migration bundle](#6-complete-your-migration-bundle)
 7. [Deploy your application](#7-deploy-your-application)
 
-## 1.Install IBM Cloud Pak for Application
+## 1. Install IBM Cloud Pak for Application
 
 
 ## 2. Get started with the Transformation Advisor
