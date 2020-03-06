@@ -53,16 +53,13 @@ When the reader has completed this code pattern, they will understand how to:
 
 ## 1. Install IBM Cloud Pak for Application
 
+Please refer to this [video](https://www.youtube.com/watch?v=gBI0ApHUFSs) to install IBM Cloud Pak for Application.
 
 ## 2. Get started with the Transformation Advisor
 
 To get started with the Transformation Advisor:
 
-* Go to your OpenShift Cluster web-console.
-//TODO
-
-* Select `Platform ▷ Transformation`.
-
+* Select the project `ta` on the Openshift console, and click the url to open `Transformation Advisor` console.
   ![run_ta](doc/source/images/run_ta.png)
 
 * On the welcome screen, click the `+` to add a workspace.
