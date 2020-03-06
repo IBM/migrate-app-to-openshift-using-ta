@@ -1,13 +1,13 @@
 ## Short Name
 
-Modernize apps with the Transformation Advisor tool and deploy on OpenShift
+Modernize apps with the IBM Transformation Advisor tool using IBM Cloud Pak for Application
 
 ## Short Description
 
-Transform your traditional on-premises app and deploy it as a containerized app on a OpenShift Platform
+Transform your traditional on-premises app and deploy it as a containerized app on an OpenShift Platform
 
 ## Author
-Balaji Kadambi, Shikha Maheshwari
+Balaji Kadambi (https://developer.ibm.com/profiles/bkadambi/), Shikha Maheshwari (https://developer.ibm.com/profiles/shikha.mah/)
 
 ## Code
 https://github.com/IBM/migrate-app-to-openshift-using-cp4a
@@ -17,25 +17,23 @@ NA
 
 ## Summary
 
-If you have existing on-premises WebSphere® Application Server apps and can benefit by moving them to the cloud, 
+If you have existing on-premises WebSphere Application Server apps and can benefit by moving them to the cloud, 
 this code pattern is for you. A simple demo app shows how to run a custom data collector to analyze an app and provide
-recommendations, cost estimates, and detailed reports to help with your transformation project. You see how to generate
-the artifacts you need and get your application deployed and running in a Liberty container on the cloud.
+recommendations, cost estimates, and detailed reports to help with your transformation project using IBM Cloud Pak for Application. You see how to generate the artifacts you need and get your application deployed and running in a Liberty container on the OpenShift Platform.
 
 ## Description
 
-This code pattern uses the Transformation Advisor app to evaluate an on-premises traditional WebSphere Application Server application for deployment on public or private cloud environments. See how to use the Transformation Advisor integration with the Microclimate development environment to deploy the app in a Liberty container running on IBM Cloud Private. The pattern also shows how to download the generated migration bundle and use its Helm chart to deploy the containerized app to a public cloud: the Kubernetes Service on IBM Cloud.
+This code pattern uses the IBM Transformation Advisor from IBM Cloud Pak for Application to evaluate an on-premises traditional WebSphere Application Server application for deployment on OpenShift Container Platform. See how to use the Transformation Advisor to get recommendations, how to download the generated migration bundle and use its artifacts to deploy the app in a Liberty container running on OpenShift Platform.
 
-A sample web app demonstrates a migration from an on-premises application to the cloud.
+A sample web app demonstrates a migration from an on-premises application to the OpenShift Platform.
 
 When you use this code pattern, you learn how to complete the following tasks:
 
-    Use Transformation Advisor to create a custom data collector.
-    Run the custom data collector to analyze a traditional WebSphere Application Server application.
-    Review the Transformation Advisor reports to see migration complexity, cost, and recommendations.
-    Generate artifacts to containerize the app.
-    Move the modernized app to IBM Cloud Private using Microclimate.
-    Move the modernized app to the Kubernetes Service on IBM Cloud using a generated migration bundle.
+ * Use Transformation Advisor from IBM Cloud Pak for Application to create a custom data collector.
+ * Run the custom data collector to analyze a traditional WebSphere Application Server application.
+ * Review the Transformation Advisor reports to see migration complexity, cost, and recommendations.
+ * Generate artifacts to containerize the app.
+ * Move the modernized app to the OpenShift Platform on IBM Cloud using a generated migration bundle.
 
 
 ## Flow
@@ -66,3 +64,7 @@ When you use this code pattern, you learn how to complete the following tasks:
 * [Java](https://www.w3schools.com/java/java_intro.asp): A secure, object-oriented programming language for creating applications.
 
 ## Links
+
+* [Build a secure microservices based banking application](https://developer.ibm.com/patterns/build-a-secure-microservices-based-application-with-transactional-flows/)
+* [Java EE Application Modernization with OpenShift](https://developer.ibm.com/patterns/jee-app-modernization-with-openshift/)
+* [Learn more about IBM Cloud Pak for Application](https://developer.ibm.com/series/ibm-cloud-pak-for-applications-video-series/)
