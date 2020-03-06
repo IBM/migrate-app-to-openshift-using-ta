@@ -53,21 +53,18 @@ When the reader has completed this code pattern, they will understand how to:
 
 ## 1. Install IBM Cloud Pak for Application
 
+Please refer to this [video](https://www.youtube.com/watch?v=gBI0ApHUFSs) to install IBM Cloud Pak for Application.
 
 ## 2. Get started with the Transformation Advisor
 
 To get started with the Transformation Advisor:
 
-* Go to your OpenShift Cluster web-console.
-//TODO
-
-* Select `Platform ▷ Transformation`.
-
+* Select the project `ta` on the Openshift console, and click the url to open `Transformation Advisor` console.
   ![run_ta](doc/source/images/run_ta.png)
 
 * On the welcome screen, click the `+` to add a workspace.
 
-  ![welcome_to_ta](doc/source/images/welcome_to_ta.jpg)
+  ![welcome_to_ta](doc/source/images/welcome_to_ta.png)
 
 * Create a new workspace that will be used to house your recommendations. The workspace name can be any string you want, such as the project name or the name for the portfolio of applications you will be analysing -- basically anything that will help you to easily identify your work when you return to it at a later date.
 
@@ -167,7 +164,7 @@ There will be additional sections to show any technology issues, external depend
 
 Scroll to the end of the recommendations screen to find three links to further detailed reports.
 
-![screen11](doc/source/images/screen11.jpg)
+![screen11](doc/source/images/screen11.png)
 
 The three reports are described as follows:
 
