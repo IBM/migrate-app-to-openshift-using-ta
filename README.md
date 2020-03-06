@@ -23,20 +23,6 @@ When the reader has completed this code pattern, they will understand how to:
 6. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
 7. Developer creates an app using the pushed image and runs the containerized app.
 
-## Included components
-
-* [IBM Cloud Pak for Application](https://www.ibm.com/cloud/cloud-pak-for-applications): The IBM Cloud Pak for Applications provides a complete and consistent experience to speed development of applications. You can easily modernize your existing applications with IBM integrated tools and develop new cloud-native applications faster for deployment on any cloud.
-
-* [Transformation Advisor](https://www.ibm.com/in-en/marketplace/cloud-transformation-advisor): Not every workload should move to cloud. The right choice can yield large cost savings and speed time to market. The Transformation Advisor tool can help you decide.
-   
-* [WebSphere Liberty](https://www.ibm.com/cloud/websphere-liberty): A dynamic and easy-to-use Java EE application server, with fast startup times, no server restarts to pick up changes, and a simple XML configuration.
-
-## Featured technologies
-
-* [OpenShift Container Platform](https://www.openshift.com/): Red Hat OpenShift offers a consistent hybrid cloud foundation for building and scaling containerized applications.
-* [Cloud](https://en.wikipedia.org/wiki/Cloud_computing): Accessing computer and information technology resources through the Internet.
-* [Containers](https://www.ibm.com/cloud/learn/containers): Virtual software objects that include all the elements that an app needs to run.
-* [Java](https://www.w3schools.com/java/java_intro.asp): A secure, object-oriented programming language for creating applications.
 
 ## Pre-requisites
 
