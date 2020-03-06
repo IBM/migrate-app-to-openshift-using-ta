@@ -290,10 +290,12 @@ Go to terminal and paste the copied login command. You will get logged into your
 
 ***Access the migrated app***
 
-   Access the migrated app on OpenShift by going to this address (note the fragment for the resorts app example):
-   ```
-   http://<Ingress IP>:<TCP PORT>/resorts/
-   ```
+   To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
+   
+   `OpenShift Web Console > Go to your project`
+   
+   Overview section lists the application deployed with URL, click the Open Url icon on the OpenShift console.
+   It will show you the WebSphere Liberty console by default. Add the context-root for your app at the end of the URL and ten your application will be acceessible.
 
 
 ## Learn More
