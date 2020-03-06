@@ -243,6 +243,7 @@ Go to terminal and paste the copied login command. You will get logged into your
 ```
    
    The docker-registry URL is `docker-registry-default.<cluster_name>-<ID_string>.<region>.containers.appdomain.cloud`.
+   
    Make a note of the Docker registry URL. It is required in subsequent steps.
 
 ***Build and Tag the docker image***
@@ -269,10 +270,13 @@ Go to terminal and paste the copied login command. You will get logged into your
    To push the image, you need to login to the OpenShift docker-registry. For login, you can use the same username and token which you used to login to OpenShift cluster.
    
    ```
-      $ docker login -u <username - displayed on OpenShift web console> -p <token - provided in your login command> <docker-registry-URL>
+      $ docker login -u <username> -p <token> <docker-registry-URL>
    ```
    
- > Note: Use the Docker registry URL noted earlier.
+   where -
+   * Username is the name displayed on OpenShift web console at the top-right corner after login
+   * Use the same token which was used in your OpenShift cluster login command
+   * Use the Docker registry URL noted earlier.
  
  After successful login to docker-registry, push the image as:
  
@@ -292,9 +296,9 @@ Go to terminal and paste the copied login command. You will get logged into your
 
    To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
    
-   `OpenShift Web Console > Go to your project`
+   `OpenShift Web Console > Go to your project > Overview`
    
-   Overview section lists the application deployed with URL, click the Open Url icon on the OpenShift console.
+   `Overview` section lists the application deployed with URL, click the Open Url icon on the OpenShift console.
    It will show you the WebSphere Liberty console by default. Add the context-root for your app at the end of the URL and ten your application will be acceessible.
 
 
