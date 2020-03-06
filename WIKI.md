@@ -7,7 +7,9 @@ Modernize apps with the IBM Transformation Advisor tool using IBM Cloud Pak for 
 Transform your traditional on-premises app and deploy it as a containerized app on an OpenShift Platform
 
 ## Author
-Balaji Kadambi (https://developer.ibm.com/profiles/bkadambi/), Shikha Maheshwari (https://developer.ibm.com/profiles/shikha.mah/)
+Balaji Kadambi (https://developer.ibm.com/profiles/bkadambi/)
+
+Shikha Maheshwari (https://developer.ibm.com/profiles/shikha.mah/)
 
 ## Code
 https://github.com/IBM/migrate-app-to-openshift-using-cp4a
