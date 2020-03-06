@@ -20,26 +20,30 @@ When the reader has completed this code pattern, they will understand how to:
 3. Data Collector analysis is uploaded (automatically or manually)
 4. Developer reviews recommendations in Transformation Advisor and creates a migration bundle
 5. Developer downloads migration bundle
-6. Developer uses Docker to build an image and upload it to OpenShift Cluster Registry
+6. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
 7. Developer creates an app using the pushed image and runs the containerized app.
 
 ## Included components
 
-* Transformation Advisor: Not every workload should move to cloud. The right choice can yield large cost savings and speed time to market. The Transformation Advisor tool can help you decide.
+* [IBM Cloud Pak for Application](https://www.ibm.com/cloud/cloud-pak-for-applications): The IBM Cloud Pak for Applications provides a complete and consistent experience to speed development of applications. You can easily modernize your existing applications with IBM integrated tools and develop new cloud-native applications faster for deployment on any cloud.
+
+* [Transformation Advisor](https://www.ibm.com/in-en/marketplace/cloud-transformation-advisor): Not every workload should move to cloud. The right choice can yield large cost savings and speed time to market. The Transformation Advisor tool can help you decide.
    
-* WebSphere Liberty: A dynamic and easy-to-use Java EE application server, with fast startup times, no server restarts to pick up changes, and a simple XML configuration.
+* [WebSphere Liberty](https://www.ibm.com/cloud/websphere-liberty): A dynamic and easy-to-use Java EE application server, with fast startup times, no server restarts to pick up changes, and a simple XML configuration.
 
 ## Featured technologies
 
-* OpenShift:
-* Cloud: Accessing computer and information technology resources through the Internet.
-* Containers: Virtual software objects that include all the elements that an app needs to run.
-* Java: A secure, object-oriented programming language for creating applications.
+* [OpenShift Container Platform](https://www.openshift.com/): Red Hat OpenShift offers a consistent hybrid cloud foundation for building and scaling containerized applications.
+* [Cloud](https://en.wikipedia.org/wiki/Cloud_computing): Accessing computer and information technology resources through the Internet.
+* [Containers](https://www.ibm.com/cloud/learn/containers): Virtual software objects that include all the elements that an app needs to run.
+* [Java](https://www.w3schools.com/java/java_intro.asp): A secure, object-oriented programming language for creating applications.
 
-## Pre-requisite
+## Pre-requisites
 
-* IBM Cloud account 
-* IBM managed OpenShift Cluster instance
+* [IBM Cloud account](https://cloud.ibm.com/): You need an IBM Cloud Account. 
+* [IBM managed OpenShift Cluster](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift&bss_account=46816354d9cb773bae86c226aa74c8cc&ims_account=2001776) instance.
+* [OpenShift CLI](https://cloud.ibm.com/docs/openshift?topic=openshift-openshift-cli)
+* [Docker](https://www.docker.com/)
 
 ## Steps
 
@@ -190,19 +194,19 @@ The binary scanner has an inventory report that helps you examine what’s in yo
 
 Select the Application you wish to migrate from the `Recommendations` tab and hit the `Migration plan` button.
 
-Transformation Advisor will automatically generate the artifacts you need to get your application deployed and running in a Liberty container on IBM Cloud Private, including...
+Transformation Advisor will automatically generate the artifacts you need to get your application deployed and running in a Liberty container on OpenShift Cluster, including...
 
 * pom.xml
 * Dockerfile
 * Operator
 * Docs
-* Source code
+* ..
 
-**You will need to add the application binary itself (EAR/WAR file) and any external dependencies that may be particular to your application such as database drivers. These files can easily be added on the migration plan page at the click of a button.
+You will need to add the application binary itself (EAR/WAR file) and any external dependencies that may be particular to your application such as database drivers. These files can easily be added on the migration plan page at the click of a button.
 
 ![add_dependencies](doc/source/images/added_war.png)
 
-**Once all required application dependencies are uploaded, you will be able to use the buttons to `Download bundle` and/or `Deploy Bundle`.**y
+Once all required application dependencies are uploaded, you will be able to use the buttons to `Download bundle` and/or `Deploy Bundle`.
 
 Download the bundle using the `Deploy Bundle` button and continue with next step to deploy the app on OpenShift.
 
@@ -210,9 +214,9 @@ Download the bundle using the `Deploy Bundle` button and continue with next step
 
 ***Login to OpenShift Cluster using CLI***
 
-Got to `IBM Cloud Dashboard > Clusters > Click on your OpenShift Cluster > OpenShift web console` as shown.
+Go to `IBM Cloud Dashboard > Clusters > Click on your OpenShift Cluster > OpenShift web console` as shown.
 
-![openshift-web-console](doc/source/images/openshift-webconsole.png)
+![openshift-web-console](doc/source/images/openshift-web-console.png)
 
 It will open a OpenShift web console for you. Get the login command from console as shown in the below snapshot.
 
@@ -248,26 +252,29 @@ Go to terminal and paste the copied login command. You will get logged into your
 
 ***Build and Tag the docker image***
 
-   Change your directory to the directory where you have downloaded artifacts from Transformatoin Advisor.
+   Change your directory to the directory where you have downloaded artifacts from Transformatoin Advisor. Unzip the downloaded bundle and then change directory to it.
    
    ```
-      $ cd <directory-name>
+      $ cd <unzipped-downloaded-bundle-directory-name>
       $ ls
       Dockerfile	docs		operator	pom.xml		src
       
-      #Build the docker image using the Dockerfile provided
+      # Build the docker image using the Dockerfile provided
       $ docker build -t modapp:latest .
       $ docker images |head -2       ## it will show the latest build image using the previous command
       
       $ docker tag modapp:latest <docker-registry URL>/<project-name>/<image_name>:<image_tag>
       
    ```
-   
-   > Note: Use the Docker registry URL noted earlier.
+   Here, 
+   * docker-registry URL - the URL which was noted in previous step
+   * project-name - the new project created before to run your migrated application
+   * image_name - you can choose any name for the image
+   * image_tag - you can give any image tag. If you do not provide any tag for your image then default tag `latest` wil be taken.
    
 ***Push the docker image to OpenShift docker-registry***
    
-   To push the image, you need to login to the OpenShift docker-registry. For login, you can use the same username and token which you used to login to OpenShift cluster.
+   To push the image, you need to login to the OpenShift docker-registry using the following command.
    
    ```
       $ docker login -u <username> -p <token> <docker-registry-URL>
@@ -286,6 +293,8 @@ Go to terminal and paste the copied login command. You will get logged into your
  
  ***Deploy the image to OpenShift***
  
+ Run the following commands to create an application using the image and to expose it as a service.
+ 
  ```
    $ oc project <project-name>
    $ oc new-app --image-stream=<image-name> --name=modapp_openshift
@@ -296,10 +305,10 @@ Go to terminal and paste the copied login command. You will get logged into your
 
    To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
    
-   `OpenShift Web Console > Go to your project > Overview`
+   `OpenShift Web Console > Go to your project > Application > Services`
    
-   `Overview` section lists the application deployed with URL, click the Open Url icon on the OpenShift console.
-   It will show you the WebSphere Liberty console by default. Add the context-root for your app at the end of the URL and ten your application will be acceessible.
+   Access the URL displayed against `modapp_openshift` service on the OpenShift web console.
+   It will show you the WebSphere Liberty console by default. Add the context-root for your app at the end of the URL and then your application will be accessible.
 
 
 ## Learn More
