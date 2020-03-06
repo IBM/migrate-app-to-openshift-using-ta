@@ -202,20 +202,98 @@ Transformation Advisor will automatically generate the artifacts you need to get
 
 ![add_dependencies](doc/source/images/added_war.png)
 
-**Once all required application dependencies are uploaded, you will be able to use the buttons to `Download bundle` and/or `Deploy Bundle`.**
+**Once all required application dependencies are uploaded, you will be able to use the buttons to `Download bundle` and/or `Deploy Bundle`.**y
 
 Download the bundle using the `Deploy Bundle` button and continue with next step to deploy the app on OpenShift.
 
 ## 7. Deploy your application
 
+***Login to OpenShift Cluster using CLI***
 
+Got to `IBM Cloud Dashboard > Clusters > Click on your OpenShift Cluster > OpenShift web console` as shown.
 
+![openshift-web-console](doc/source/images/openshift-webconsole.png)
 
+It will open a OpenShift web console for you. Get the login command from console as shown in the below snapshot.
 
-Access the migrated app on ICP by going to this address (note the fragment for the resorts app example):
+![copy-login-command](doc/source/images/copy-login-command.png)
+
+Go to terminal and paste the copied login command. You will get logged into your OpenShift cluster.
+
 ```
-http://<Ingress IP>:<TCP PORT>/resorts/
+   $ oc login https://xxx.containers.cloud.ibm.com:xxx --token=xxxx
+   Logged into "https://xxx.containers.cloud.ibm.com:xxx" as "xxxx" using the token provided.
+   
+   # Create a new project to run your application
+   $ oc new-project <project-name>
 ```
+
+***Create/Get a route for the docker-registry***
+
+```
+   $ oc project default
+   $ oc get route docker-registry
+    # If it does not show any route for docker-registry, follow the below steps to create route for deocker-registry.
+    
+   $ oc create route reencrypt --service=docker-registry
+   $ oc get route docker-registry
+   NAME              HOST/PORT                                              PATH   SERVICES     PORT   TERMINATION   WILDCARD
+   docker-registry   docker-registry-default.xxxx.containers.appdomain.cloud  docker-registry   5000-tcp   reencrypt     None
+    
+```
+   
+   The docker-registry URL is `docker-registry-default.<cluster_name>-<ID_string>.<region>.containers.appdomain.cloud`.
+   Make a note of the Docker registry URL. It is required in subsequent steps.
+
+***Build and Tag the docker image***
+
+   Change your directory to the directory where you have downloaded artifacts from Transformatoin Advisor.
+   
+   ```
+      $ cd <directory-name>
+      $ ls
+      Dockerfile	docs		operator	pom.xml		src
+      
+      #Build the docker image using the Dockerfile provided
+      $ docker build -t modapp:latest .
+      $ docker images |head -2       ## it will show the latest build image using the previous command
+      
+      $ docker tag modapp:latest <docker-registry URL>/<project-name>/<image_name>:<image_tag>
+      
+   ```
+   
+   > Note: Use the Docker registry URL noted earlier.
+   
+***Push the docker image to OpenShift docker-registry***
+   
+   To push the image, you need to login to the OpenShift docker-registry. For login, you can use the same username and token which you used to login to OpenShift cluster.
+   
+   ```
+      $ docker login -u <username - displayed on OpenShift web console> -p <token - provided in your login command> <docker-registry-URL>
+   ```
+   
+ > Note: Use the Docker registry URL noted earlier.
+ 
+ After successful login to docker-registry, push the image as:
+ 
+ ```
+   $ docker push <docker-registry URL>/<project-name>/<image_name>:<image_tag>
+ ```
+ 
+ ***Deploy the image to OpenShift***
+ 
+ ```
+   $ oc project <project-name>
+   $ oc new-app --image-stream=<image-name> --name=modapp_openshift
+   $ oc expose svc/modapp_openshift
+ ```
+
+***Access the migrated app***
+
+   Access the migrated app on OpenShift by going to this address (note the fragment for the resorts app example):
+   ```
+   http://<Ingress IP>:<TCP PORT>/resorts/
+   ```
 
 
 ## Learn More
