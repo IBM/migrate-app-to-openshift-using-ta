@@ -64,7 +64,7 @@ To get started with the Transformation Advisor:
 
 * On the welcome screen, click the `+` to add a workspace.
 
-  ![welcome_to_ta](doc/source/images/welcome_to_ta.jpg)
+  ![welcome_to_ta](doc/source/images/welcome_to_ta.png)
 
 * Create a new workspace that will be used to house your recommendations. The workspace name can be any string you want, such as the project name or the name for the portfolio of applications you will be analysing -- basically anything that will help you to easily identify your work when you return to it at a later date.
 
@@ -164,7 +164,7 @@ There will be additional sections to show any technology issues, external depend
 
 Scroll to the end of the recommendations screen to find three links to further detailed reports.
 
-![screen11](doc/source/images/screen11.jpg)
+![screen11](doc/source/images/screen11.png)
 
 The three reports are described as follows:
 
