@@ -283,20 +283,38 @@ Go to terminal and paste the copied login command. You will get logged into your
  Run the following commands to create an application using the image and to expose it as a service.
  
  ```
-   $ oc project <project-name>
-   $ oc new-app --image-stream=<image-name> --name=modapp_openshift
+   $ oc new-app --image-stream=<image_name>:<image_tag> --name=modapp-openshift
    $ oc expose svc/modapp_openshift
+   
+   # Verify the pods and services
+   $ oc get pods       ## it will show a pod running with modapp-openshift-** name
+   $ oc get services   ## it will show a service running with modapp-openshift name
  ```
 
 ***Access the migrated app***
 
    To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
    
-   `OpenShift Web Console > Go to your project > Application > Services`
+   `OpenShift Web Console > <Go to your project> > Overview`
    
-   Access the URL displayed against `modapp_openshift` service on the OpenShift web console.
-   It will show you the WebSphere Liberty console by default. Add the context-root for your app at the end of the URL and then your application will be accessible.
-
+   Access the URL displayed against `modapp-openshift` application on the OpenShift web console.
+   It will show you the WebSphere Liberty console by default. Append the context-root for your app at the end of the URL and then your application will be accessible. In this case context-root is `modresorts-1_0_war`.
+   
+   > Note: To find the context root of your application, just check the logs of your application pod.
+   
+   ```
+    $ oc logs <pod-name>
+    
+    For example,
+    $ oc logs modapp-openshift-**
+    ## Ouput should be like this...
+    ...
+    [AUDIT   ] CWWKT0016I: Web application available (default_host): ...
+    [AUDIT   ] CWWKT0016I: Web application available (default_host): ...
+    [AUDIT   ] CWWKT0016I: Web application available (default_host): ...
+    [AUDIT   ] CWWKZ0001I: Application modresorts-1_0_war started in 0.904 seconds.
+    ...
+   ```
 
 ## Learn More
 
