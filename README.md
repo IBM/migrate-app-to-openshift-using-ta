@@ -298,9 +298,7 @@ Go to terminal and paste the copied login command. You will get logged into your
    `OpenShift Web Console > <Go to your project> > Overview`
    
    Access the URL displayed against `modapp-openshift` application on the OpenShift web console.
-   It will show you the WebSphere Liberty console by default. Append the context-root for your app at the end of the URL and then your application will be accessible. In this case context-root is `modresorts-1_0_war`.
-   
-   > Note: To find the context root of your application, just check the logs of your application pod.
+   It will show you the WebSphere Liberty console by default. Append the context-root for your app at the end of the URL and then your application will be accessible. To find the context root of your application, just check the logs of your application pod as shown. In this case context-root is `modresorts-1_0_war`.
    
    ```
     $ oc logs <pod-name>
