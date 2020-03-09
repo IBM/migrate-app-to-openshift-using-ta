@@ -274,6 +274,7 @@ Go to terminal and paste the copied login command. You will get logged into your
  After successful login to docker-registry, push the image as:
  
  ```
+   $ oc project <project-name>
    $ docker push <docker-registry URL>/<project-name>/<image_name>:<image_tag>
  ```
  
