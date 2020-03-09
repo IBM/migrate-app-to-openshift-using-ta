@@ -15,13 +15,14 @@ When the reader has completed this code pattern, they will understand how to:
 
 ## Flow
 
-1. Developer downloads a custom Data Collector from Transformation Advisor
-2. Developer runs the Data Collector on the traditional WebSphere Application Server host
-3. Data Collector analysis is uploaded (automatically or manually)
-4. Developer reviews recommendations in Transformation Advisor and creates a migration bundle
-5. Developer downloads migration bundle
-6. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
-7. Developer creates an app using the pushed image and runs the containerized app.
+1. Developer installs IBM Cloud Pak for Application and access IBM Transformation Advisor
+2. Developer downloads a custom Data Collector from IBM Transformation Advisor
+3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application(to be migrated) is running
+4. Data Collector analysis is uploaded (automatically or manually)
+5. Developer reviews recommendations in Transformation Advisor and creates a migration bundle
+6. Developer downloads migration bundle
+7. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
+8. Developer creates an app using the pushed image and runs the containerized app.
 
 
 ## Pre-requisites
