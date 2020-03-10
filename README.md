@@ -1,5 +1,4 @@
-# ***** Work in progress ****
-# App Modernization using Transformation Advisor on IBM Cloud Pak for Applications
+# Modernize App using IBM Transformation Advisor on IBM Cloud Pak for Applications
 
 In this code pattern, we will use Transformation Advisor from IBM Cloud Pak for Application to evaluate an on-premise traditional WebSphere application for deployment on OpenShift Cluster. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy the app in a Liberty container running on OpenShift. 
 
@@ -190,10 +189,10 @@ Select `View migration plan` for the Application you wish to migrate.
 
 Transformation Advisor will automatically generate the artifacts you need to get your application deployed and running in a Liberty container on OpenShift Cluster, including...
 
+* server.xml 
 * pom.xml
 * Dockerfile
-* Operator
-* Docs
+* Operator Resources
 * ..
 
 ![add_dependencies](doc/source/images/added_war.png)
