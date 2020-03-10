@@ -22,13 +22,13 @@ When the reader has completed this code pattern, they will understand how to:
 5. Developer reviews recommendations in Transformation Advisor and creates a migration bundle
 6. Developer downloads migration bundle
 7. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
-8. Developer creates an app using the pushed image and runs the containerized app.
+8. Developer creates an app using the pushed image and runs the containerized app
 
 
 ## Pre-requisites
 
-* [IBM Cloud account](https://cloud.ibm.com/): You need an IBM Cloud Account. 
-* [IBM managed OpenShift Cluster](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift&bss_account=46816354d9cb773bae86c226aa74c8cc&ims_account=2001776) instance.
+* [IBM Cloud account](https://cloud.ibm.com/) 
+* [IBM managed OpenShift Cluster instance](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift&bss_account=46816354d9cb773bae86c226aa74c8cc&ims_account=2001776)
 * [OpenShift CLI](https://cloud.ibm.com/docs/openshift?topic=openshift-openshift-cli)
 * [Docker](https://www.docker.com/)
 
@@ -316,6 +316,10 @@ Go to terminal and paste the copied login command. You will get logged into your
    ```
 
 ## Learn More
+
+* [Build a secure microservices based banking application](https://developer.ibm.com/patterns/build-a-secure-microservices-based-application-with-transactional-flows/)
+* [Java EE Application Modernization with OpenShift](https://developer.ibm.com/patterns/jee-app-modernization-with-openshift/)
+* [Learn more about IBM Cloud Pak for Application](https://developer.ibm.com/series/ibm-cloud-pak-for-applications-video-series/)
 
 <!-- keep this -->
 ## License
