@@ -182,7 +182,7 @@ The binary scanner has an inventory report that helps you examine what’s in yo
 
 ![inventory](doc/source/images/inventory.png)
 
-## 6. Complete your migration bundle
+## 6. Download your migration bundle
 
 Select `Migration plan` for the Application you wish to migrate.
 
