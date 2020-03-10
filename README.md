@@ -41,7 +41,7 @@ When the reader has completed this code pattern, they will understand how to:
 3. [Download and run the Data Collector](#3-download-and-run-the-data-collector)
 4. [Upload results, if necessary](#4-upload-results-if-necessary)
 5. [View the recommendations and cost estimates](#5-view-the-recommendations-and-cost-estimates)
-6. [Complete your migration bundle](#6-complete-your-migration-bundle)
+6. [Download your migration bundle](#6-download-your-migration-bundle)
 7. [Deploy your application](#7-deploy-your-application)
 
 ## 1. Install IBM Cloud Pak for Applications
@@ -184,7 +184,9 @@ The binary scanner has an inventory report that helps you examine what’s in yo
 
 ## 6. Complete your migration bundle
 
-Select the Application you wish to migrate from the `Recommendations` tab and hit the `Migration plan` button.
+Select `Migration plan` for the Application you wish to migrate.
+
+![add_dependencies](doc/source/images/plan.png)
 
 Transformation Advisor will automatically generate the artifacts you need to get your application deployed and running in a Liberty container on OpenShift Cluster, including...
 
@@ -194,13 +196,9 @@ Transformation Advisor will automatically generate the artifacts you need to get
 * Docs
 * ..
 
-You will need to add the application binary itself (EAR/WAR file) and any external dependencies that may be particular to your application such as database drivers. These files can easily be added on the migration plan page at the click of a button.
-
 ![add_dependencies](doc/source/images/added_war.png)
 
-Once all required application dependencies are uploaded, you will be able to use the buttons to `Download bundle` and/or `Deploy Bundle`.
-
-Download the bundle using the `Deploy Bundle` button and continue with next step to deploy the app on OpenShift.
+Click on `Download bundle` to download the bundle.
 
 ## 7. Deploy your application
 
