@@ -40,7 +40,9 @@ When you use this code pattern, you learn how to complete the following tasks:
 
 ## Flow
 
-1. Developer installs IBM Cloud Pak for Application and access IBM Transformation Advisor
+![architecture](doc/source/images/architecture.png)
+
+1. Developer accesses IBM Transformation Advisor on IBM Cloud Pak for Application
 2. Developer downloads a custom Data Collector from Transformation Advisor
 3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application (to be migrated) is running
 4. Data Collector analysis is uploaded (automatically or manually)
