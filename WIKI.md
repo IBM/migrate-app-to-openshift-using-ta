@@ -27,7 +27,7 @@ recommendations, cost estimates, and detailed reports to help with your transfor
 
 This code pattern uses the IBM Transformation Advisor from IBM Cloud Pak for Application to evaluate an on-premises traditional WebSphere Application Server application for deployment on OpenShift Container Platform. See how to use the Transformation Advisor to get recommendations, how to download the generated migration bundle and use its artifacts to deploy the app in a Liberty container running on OpenShift Platform.
 
-A sample web app demonstrates a migration from an on-premises application to the OpenShift Platform.
+A sample web app demonstrates a migration from an on-premises application to the OpenShift Platform using IBM Cloud Pak for Application.
 
 When you use this code pattern, you learn how to complete the following tasks:
 
@@ -40,13 +40,14 @@ When you use this code pattern, you learn how to complete the following tasks:
 
 ## Flow
 
-1. Developer downloads a custom Data Collector from Transformation Advisor
-2. Developer runs the Data Collector on the traditional WebSphere Application Server host
-3. Data Collector analysis is uploaded (automatically or manually)
-4. Developer reviews recommendations in Transformation Advisor and creates a migration bundle
-5. Developer downloads migration bundle
-6. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
-7. Developer creates an app using the pushed image and runs the containerized app.
+1. Developer installs IBM Cloud Pak for Application and access IBM Transformation Advisor
+2. Developer downloads a custom Data Collector from Transformation Advisor
+3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application (to be migrated) is running
+4. Data Collector analysis is uploaded (automatically or manually)
+5. Developer reviews recommendations in Transformation Advisor and creates a migration bundle
+6. Developer downloads migration bundle
+7. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
+8. Developer creates an app using the pushed image and runs the containerized app
 
 
 ## Included components
