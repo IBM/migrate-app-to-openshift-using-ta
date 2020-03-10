@@ -17,7 +17,7 @@ When the reader has completed this code pattern, they will understand how to:
 
 ![architecture](doc/source/images/architecture.png)
 
-1. Developer accesses IBM Transformation Advisor on IBM Cloud Pak for Application
+1. Developer accesses IBM Transformation Advisor on IBM Cloud Pak for Applications
 2. Developer downloads a custom Data Collector from IBM Transformation Advisor
 3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application(to be migrated) is running
 4. Data Collector analysis is uploaded (automatically or manually)
@@ -36,7 +36,7 @@ When the reader has completed this code pattern, they will understand how to:
 
 ## Steps
 
-1. [Install IBM Cloud Pak for Application](#1-install-ibm-cloud-pak-for-application)
+1. [Install IBM Cloud Pak for Applications](#1-install-ibm-cloud-pak-for-applications)
 2. [Get started with the Transformation Advisor](#2-get-started-with-the-transformation-advisor)
 3. [Download and run the Data Collector](#3-download-and-run-the-data-collector)
 4. [Upload results, if necessary](#4-upload-results-if-necessary)
@@ -44,16 +44,19 @@ When the reader has completed this code pattern, they will understand how to:
 6. [Complete your migration bundle](#6-complete-your-migration-bundle)
 7. [Deploy your application](#7-deploy-your-application)
 
-## 1. Install IBM Cloud Pak for Application
+## 1. Install IBM Cloud Pak for Applications
 
-Please refer to this [video](https://www.youtube.com/watch?v=gBI0ApHUFSs) to install IBM Cloud Pak for Application.
+Please refer to this [video](https://www.youtube.com/watch?v=gBI0ApHUFSs) to install IBM Cloud Pak for Applications.
 
 ## 2. Get started with the Transformation Advisor
 
 To get started with the Transformation Advisor:
 
-* Select the project `ta` on the Openshift console, and click the url to open `Transformation Advisor` console.
-  ![run_ta](doc/source/images/run_ta.png)
+* Select the project `cp4a` on the Openshift console, and open `Cloud Pak for Applications`.
+ ![open_cloudpak](doc/source/images/open_cloudpak.png)
+ 
+* Open `Transformation Advisor`
+  ![open_ta](doc/source/images/open_ta.png)
 
 * On the welcome screen, click the `+` to add a workspace.
 
