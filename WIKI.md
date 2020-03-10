@@ -4,7 +4,7 @@ Modernize apps with IBM Transformation Advisor tool on IBM Cloud Pak for Applica
 
 ## Short Description
 
-Transform your traditional on-premises app and deploy it as a containerized app on an OpenShift Platform
+Transform your traditional on-premise application, and deploy it as a containerized app on IBM Cloud Pak for Applications.
 
 ## Author
 Balaji Kadambi (https://developer.ibm.com/profiles/bkadambi/)
@@ -25,7 +25,7 @@ recommendations, cost estimates, and detailed reports to help with your transfor
 
 ## Description
 
-This code pattern uses the IBM Transformation Advisor from IBM Cloud Pak for Application to evaluate an on-premises traditional WebSphere Application Server application for deployment on OpenShift Container Platform. See how to use the Transformation Advisor to get recommendations, how to download the generated migration bundle and use its artifacts to deploy the app in a Liberty container running on OpenShift Platform.
+This code pattern uses the IBM Transformation Advisor on IBM Cloud Pak for Applications to evaluate an on-premises traditional WebSphere Application Server application for deployment on OpenShift Container Platform. See how to use the Transformation Advisor to get recommendations, how to download the generated migration bundle and use its artifacts to deploy the app in a Liberty container running on OpenShift Platform.
 
 A sample web app demonstrates a migration from an on-premises application to the OpenShift Platform using IBM Cloud Pak for Application.
 
@@ -42,7 +42,7 @@ When you use this code pattern, you learn how to complete the following tasks:
 
 ![architecture](doc/source/images/architecture.png)
 
-1. Developer accesses IBM Transformation Advisor on IBM Cloud Pak for Application
+1. Developer accesses IBM Transformation Advisor on IBM Cloud Pak for Applications
 2. Developer downloads a custom Data Collector from Transformation Advisor
 3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application (to be migrated) is running
 4. Data Collector analysis is uploaded (automatically or manually)
