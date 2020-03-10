@@ -1,6 +1,6 @@
 ## Short Name
 
-Modernize apps with IBM Transformation Advisor tool on IBM Cloud Pak for Application
+Modernize apps with IBM Transformation Advisor tool on IBM Cloud Pak for Applications
 
 ## Short Description
 
