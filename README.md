@@ -40,8 +40,8 @@ When the reader has completed this code pattern, they will understand how to:
 3. [Download and run the Data Collector](#3-download-and-run-the-data-collector)
 4. [Upload results, if necessary](#4-upload-results-if-necessary)
 5. [View the recommendations and cost estimates](#5-view-the-recommendations-and-cost-estimates)
-6. [Download your migration bundle](#6-download-your-migration-bundle)
-7. [Deploy your application](#7-deploy-your-application)
+6. [Complete your migration bundle](#6-complete-your-migration-bundle)
+7. [Deploy your application on CP4A](#7-deploy-your-application-on-cp4a)
 
 ## 1. Install IBM Cloud Pak for Applications
 
@@ -181,7 +181,7 @@ The binary scanner has an inventory report that helps you examine what’s in yo
 
 ![inventory](doc/source/images/inventory.png)
 
-## 6. Download your migration bundle
+## 6. Complete your migration bundle
 
 Select `View migration plan` for the Application you wish to migrate.
 
@@ -199,7 +199,41 @@ Transformation Advisor will automatically generate the artifacts you need to get
 
 Click on `Download bundle` to download the bundle.
 
-## 7. Deploy your application
+Unzip the bundle contents into a folder `migrated_app`. Now, let us add the source code and other dependencies to complete the bundle.
+
+Clone this repo by running the below command:
+```
+git clone https://github.com/IBM/migrate-app-to-openshift-using-cp4a
+```
+This creates a folder `migrate-app-to-openshift-using-cp4a` with all the contents from the repo.
+
+Let us now copy the sources and dependencies to the `migrated-app` folder:
+- Copy the folder `migrate-app-to-openshift-using-cp4a/src` with contents to `migrated_app` folder.
+- Copy the file `migrate-app-to-openshift-using-cp4a/pom.xml` to `migrated_app` folder. Modify the configuration for the `maven-war-plugin` in the `pom.xml` as shown below:
+```
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <packagingExcludes>pom.xml</packagingExcludes>
+          <outputDirectory>target</outputDirectory>
+        </configuration>
+      </plugin>
+ ```
+- Copy the contents under the folder `migrate-app-to-openshift-using-cp4a/WebContent` to `migrated_app/src/main/webapp`.
+- Modify the file `location` attribute of the application tag in the file `migrated_app/src/main/liberty/config/server.xml` as shown below:
+```
+<application id="modresorts" location="modresorts-1.0.war" name="modresorts-1_0_war" type="war"/>
+```
+Now the migration bundle is complete, and is ready to be deployed on IBM Cloud Pak for Applications.
+
+If you wish to move the migrated bundle to a GitHub repo and then deploy the application, follow the below steps:
+- Goto https://github.com and create a new repo.
+- Move all the contents `under` the folder `migrated_app` to the repo.
+
+## 7. Deploy your application on CP4A
 
 ***Login to OpenShift Cluster using CLI***
 
@@ -237,8 +271,12 @@ Go to terminal and paste the copied login command. You will get logged into your
    
    The docker-registry URL is `docker-registry-default.<cluster_name>-<ID_string>.<region>.containers.appdomain.cloud`.
    
-   Make a note of the Docker registry URL. It is required in subsequent steps.
-
+   Make a note of the Docker registry URL. Set it as a variable. 
+   
+    ```
+    export IMAGE_REGISTRY=docker-registry-default.<cluster_name>-<ID_string>.<region>.containers.appdomain.cloud
+    ```
+    
 ***Build and Tag the docker image***
 
    Change your directory to the directory where you have downloaded artifacts from Transformatoin Advisor. Unzip the downloaded bundle and then change directory to it.
@@ -252,7 +290,7 @@ Go to terminal and paste the copied login command. You will get logged into your
       $ docker build -t modapp:latest .
       $ docker images |head -2       ## it will show the latest build image using the previous command
       
-      $ docker tag modapp:latest <docker-registry URL>/<project-name>/<image_name>:<image_tag>
+      $ docker tag modapp:latest $IMAGE_REGISTRY/<project-name>/<image_name>:<image_tag>
       
    ```
    Here, 
@@ -265,9 +303,9 @@ Go to terminal and paste the copied login command. You will get logged into your
    
    To push the image, you need to login to the OpenShift docker-registry using the following command.
    
-   ```
-      $ docker login -u <username> -p <token> <docker-registry-URL>
-   ```
+    ```
+     docker login -u $(oc whoami) -p $(oc whoami -t) $IMAGE_REGISTRY
+    ```
    
    where -
    * Username is the name displayed on OpenShift web console at the top-right corner after login
@@ -278,7 +316,7 @@ Go to terminal and paste the copied login command. You will get logged into your
  
  ```
    $ oc project <project-name>
-   $ docker push <docker-registry URL>/<project-name>/<image_name>:<image_tag>
+   $ docker push $IMAGE_REGISTRY/<project-name>/<image_name>:<image_tag>
  ```
  
  ***Deploy the image to OpenShift***
@@ -299,23 +337,11 @@ Go to terminal and paste the copied login command. You will get logged into your
    To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
    
    `OpenShift Web Console > <Go to your project> > Overview`
+   ![url](doc/source/images/url.png)
    
-   Access the URL displayed against `modapp-openshift` application on the OpenShift web console.
-   It will show you the WebSphere Liberty console by default. Append the context-root for your app at the end of the URL and then your application will be accessible. To find the context root of your application, just check the logs of your application pod as shown. In this case context-root is `modresorts-1_0_war`.
+  Open the noted url by adding the "/resorts" context path to see the below page:
+  ![resorts](doc/source/images/resorts.png)
    
-   ```
-    $ oc logs <pod-name>
-    
-    For example,
-    $ oc logs modapp-openshift-**
-    ## Ouput should be like this...
-    ...
-    [AUDIT   ] CWWKT0016I: Web application available (default_host): ...
-    [AUDIT   ] CWWKT0016I: Web application available (default_host): ...
-    [AUDIT   ] CWWKT0016I: Web application available (default_host): ...
-    [AUDIT   ] CWWKZ0001I: Application modresorts-1_0_war started in 0.904 seconds.
-    ...
-   ```
 
 ## Learn More
 
