@@ -215,7 +215,11 @@ Let us now copy the sources and dependencies to the `migrated-app` folder:
 ```
 <application id="modresorts" location="modresorts-1.0.war" name="modresorts-1_0_war" type="war"/>
 ```
-Now the migration bundle is complete and is ready to be deployed on IBM Cloud Pak for Applications.
+Now the migration bundle is complete, and is ready to be deployed on IBM Cloud Pak for Applications.
+
+If you wish to move the migrated bundle to a GitHub repo and then deploy the application, follow the below steps:
+- Goto https://github.com and create a new repo.
+- Move all the contents `under` the folder `migrated_app` to the repo.
 
 ## 7. Deploy your application on CP4A
 
