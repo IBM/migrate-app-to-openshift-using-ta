@@ -207,9 +207,10 @@ git clone https://github.com/IBM/migrate-app-to-openshift-using-cp4a
 ```
 This creates a folder `appmod-resorts` with all the contents from the repo.
 
-Copy the folder `appmod-resorts/src` with contents to `migrated_app` folder.
-Copy the file `appmod-resorts/pom.xml` to `migrated_app` folder.
-Copy the contents under the folder `appmod-resorts/WebContent` to `migrated_app/src/main/webapp`.
+Let us now copy the sources and dependencies to the `migrated-app` folder:
+- Copy the folder `appmod-resorts/src` with contents to `migrated_app` folder.
+- Copy the file `appmod-resorts/pom.xml` to `migrated_app` folder.
+- Copy the contents under the folder `appmod-resorts/WebContent` to `migrated_app/src/main/webapp`.
 
 Modify the file location attribute of the application tag in the file `migrated_app/src/main/liberty/config/server.xml` as shown below:
 ```
