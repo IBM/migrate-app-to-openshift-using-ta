@@ -256,7 +256,9 @@ Go to terminal and paste the copied login command. You will get logged into your
    $ oc new-project <project-name>
 ```
 
-If you have pushed your migration bundle into Github repo, then jump to section *Deploy the app to OpenShift using Github repo* and follow the steps. Otherwise continue executing the steps below.
+If you have pushed your migration bundle into Github repo, then jump to section *Deploy the app to OpenShift using Github repo* and follow the steps.
+
+### Create image and deploy app to OpenShift using the image created
 
 ***Create/Get a route for the docker-registry***
 
@@ -336,7 +338,7 @@ If you have pushed your migration bundle into Github repo, then jump to section 
  ```
  After this, jump to section *Access the migrated app*.
  
- ***Deploy the app to OpenShift using Github repo***
+ ### Deploy the app to OpenShift using Github repo
  
  Run the following commands to create an application using the Github repository and to expose it as a service.
  
@@ -349,7 +351,7 @@ If you have pushed your migration bundle into Github repo, then jump to section 
    $ oc get services   ## it will show a service running with modapp-openshift name
  ```
 
-***Access the migrated app***
+### Access the migrated app
 
    To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
    
