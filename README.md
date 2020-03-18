@@ -339,7 +339,7 @@ Go to terminal and paste the copied login command. You will get logged into your
    `OpenShift Web Console > <Go to your project> > Overview`
    ![url](doc/source/images/url.png)
    
-  Open the noted url followed by /resorts to see the below page:
+  Open the noted url by adding the "/resorts" context path to see the below page:
   ![resorts](doc/source/images/resorts.png)
    
 
