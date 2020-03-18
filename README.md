@@ -205,7 +205,7 @@ Clone this repo by running the below command:
 ```
 git clone https://github.com/IBM/migrate-app-to-openshift-using-cp4a
 ```
-This creates a folder `appmod-resorts`.
+This creates a folder `appmod-resorts` with all the contents from the repo.
 
 Copy the folder `appmod-resorts/src` with contents to `migrated_app` folder.
 Copy the file `appmod-resorts/pom.xml` to `migrated_app` folder.
@@ -256,9 +256,11 @@ Go to terminal and paste the copied login command. You will get logged into your
    The docker-registry URL is `docker-registry-default.<cluster_name>-<ID_string>.<region>.containers.appdomain.cloud`.
    
    Make a note of the Docker registry URL. Set it as a variable. 
+   
     ```
     export IMAGE_REGISTRY=docker-registry-default.<cluster_name>-<ID_string>.<region>.containers.appdomain.cloud
     ```
+    
 ***Build and Tag the docker image***
 
    Change your directory to the directory where you have downloaded artifacts from Transformatoin Advisor. Unzip the downloaded bundle and then change directory to it.
