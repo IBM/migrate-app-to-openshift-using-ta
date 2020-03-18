@@ -2,15 +2,16 @@
 
 In this code pattern, we will use Transformation Advisor from IBM Cloud Pak for Application to evaluate an on-premise traditional WebSphere application for deployment on OpenShift Cluster. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy the app in a Liberty container running on OpenShift. 
 
-A sample web app is provided to demonstrate migration from on-premise to the cloud (OpenShift).
+A sample web app is provided to demonstrate migration from on-premise to the cloud.
 
 When the reader has completed this code pattern, they will understand how to:
 
+* Access IBM Cloud Pak for Applications (ICP4A)
 * Use Transformation Advisor to create a custom Data Collector
 * Run the custom Data Collector to analyze a traditional WebSphere app
 * Review the Transformation Advisor reports to see migration complexity, cost, and recommendations
 * Generate artifacts to containerize the app
-* Move the modernized app to IBM managed OpenShift Cluster using a generated migration bundle
+* Move the modernized app to target Cloud Platform (which si IBM managed OpenShift Cluster) using a generated migration bundle
 
 ## Flow
 
@@ -255,6 +256,8 @@ Go to terminal and paste the copied login command. You will get logged into your
    $ oc new-project <project-name>
 ```
 
+If you have pushed your migration bundle into Github repo, then jump to section *Deploy the app to OpenShift using Github repo* and follow the steps. Otherwise continue executing the steps below.
+
 ***Create/Get a route for the docker-registry***
 
 ```
@@ -319,12 +322,26 @@ Go to terminal and paste the copied login command. You will get logged into your
    $ docker push $IMAGE_REGISTRY/<project-name>/<image_name>:<image_tag>
  ```
  
- ***Deploy the image to OpenShift***
+ ***Deploy the app to OpenShift using the image created***
  
  Run the following commands to create an application using the image and to expose it as a service.
  
  ```
    $ oc new-app --image-stream=<image_name>:<image_tag> --name=modapp-openshift
+   $ oc expose svc/modapp_openshift
+   
+   # Verify the pods and services
+   $ oc get pods       ## it will show a pod running with modapp-openshift-** name
+   $ oc get services   ## it will show a service running with modapp-openshift name
+ ```
+ After this, jump to section *Access the migrated app*.
+ 
+ ***Deploy the app to OpenShift using Github repo***
+ 
+ Run the following commands to create an application using the Github repository and to expose it as a service.
+ 
+ ```
+   $ oc new-app <github-repo-url> --name=modapp-openshift  ## wait for this command to complete
    $ oc expose svc/modapp_openshift
    
    # Verify the pods and services
@@ -339,8 +356,8 @@ Go to terminal and paste the copied login command. You will get logged into your
    `OpenShift Web Console > <Go to your project> > Overview`
    ![url](doc/source/images/url.png)
    
-  Open the noted url by adding the "/resorts" context path to see the below page:
-  ![resorts](doc/source/images/resorts.png)
+   Open the noted url by adding the "/resorts" context path to see the below page:
+   ![resorts](doc/source/images/resorts.png)
    
 
 ## Learn More
