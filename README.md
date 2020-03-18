@@ -41,7 +41,7 @@ When the reader has completed this code pattern, they will understand how to:
 4. [Upload results, if necessary](#4-upload-results-if-necessary)
 5. [View the recommendations and cost estimates](#5-view-the-recommendations-and-cost-estimates)
 6. [Complete your migration bundle](#6-complete-your-migration-bundle)
-7. [Deploy your application](#7-deploy-your-application)
+7. [Deploy your application on CP4A](#7-deploy-your-application-on-cp4a)
 
 ## 1. Install IBM Cloud Pak for Applications
 
@@ -218,7 +218,7 @@ Modify the file location attribute of the application tag in the file `migrated_
 ```
 Now the migration bundle is complete and is ready to be deployed on IBM Cloud Pak for Applications.
 
-## 7. Deploy your application
+## 7. Deploy your application on CP4A
 
 ***Login to OpenShift Cluster using CLI***
 
