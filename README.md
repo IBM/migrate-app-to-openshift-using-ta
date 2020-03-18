@@ -209,7 +209,19 @@ This creates a folder `migrate-app-to-openshift-using-cp4a` with all the content
 
 Let us now copy the sources and dependencies to the `migrated-app` folder:
 - Copy the folder `migrate-app-to-openshift-using-cp4a/src` with contents to `migrated_app` folder.
-- Copy the file `migrate-app-to-openshift-using-cp4a/pom.xml` to `migrated_app` folder.
+- Copy the file `migrate-app-to-openshift-using-cp4a/pom.xml` to `migrated_app` folder. Modify the configuration for the `maven-war-plugin` in the `pom.xml` as shown below:
+```
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <packagingExcludes>pom.xml</packagingExcludes>
+          <outputDirectory>target</outputDirectory>
+        </configuration>
+      </plugin>
+ ```
 - Copy the contents under the folder `migrate-app-to-openshift-using-cp4a/WebContent` to `migrated_app/src/main/webapp`.
 - Modify the file `location` attribute of the application tag in the file `migrated_app/src/main/liberty/config/server.xml` as shown below:
 ```
@@ -325,23 +337,11 @@ Go to terminal and paste the copied login command. You will get logged into your
    To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
    
    `OpenShift Web Console > <Go to your project> > Overview`
+   ![url](doc/source/images/url.png)
    
-   Access the URL displayed against `modapp-openshift` application on the OpenShift web console.
-   It will show you the WebSphere Liberty console by default. Append the context-root for your app at the end of the URL and then your application will be accessible. To find the context root of your application, just check the logs of your application pod as shown. In this case context-root is `modresorts-1_0_war`.
+  Open the noted url followed by /resorts to see the below page:
+  ![resorts](doc/source/images/resorts.png)
    
-   ```
-    $ oc logs <pod-name>
-    
-    For example,
-    $ oc logs modapp-openshift-**
-    ## Ouput should be like this...
-    ...
-    [AUDIT   ] CWWKT0016I: Web application available (default_host): ...
-    [AUDIT   ] CWWKT0016I: Web application available (default_host): ...
-    [AUDIT   ] CWWKT0016I: Web application available (default_host): ...
-    [AUDIT   ] CWWKZ0001I: Application modresorts-1_0_war started in 0.904 seconds.
-    ...
-   ```
 
 ## Learn More
 
