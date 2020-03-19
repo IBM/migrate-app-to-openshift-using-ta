@@ -256,7 +256,7 @@ Go to terminal and paste the copied login command. You will get logged into your
    $ oc new-project <project-name>
 ```
 
-If you have pushed your migration bundle into Github repo, then jump to section *Deploy the app using Github repo* and follow the steps.
+If you have pushed your migration bundle into Github repo, then you got directly to section *Deploy the app using Github repo* and follow the steps.
 
 ### Create image and deploy app using the image created
 
