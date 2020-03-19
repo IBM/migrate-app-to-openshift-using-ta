@@ -1,4 +1,4 @@
-# Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications
+# Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster.
 
 In this code pattern, we will use Transformation Advisor from IBM Cloud Pak for Application to evaluate an on-premises traditional WebSphere application for deployment on OpenShift Cluster. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy the app in a Liberty container running on OpenShift. 
 
@@ -6,7 +6,7 @@ A sample web app is provided to demonstrate migration from on-premises to the cl
 
 When the reader has completed this code pattern, they will understand how to:
 
-* Access IBM Cloud Pak for Applications (ICP4A)
+* Access IBM Cloud Pak for Applications on the IBM managed OpenShift cluster.(ICP4A)
 * Use Transformation Advisor to create a custom Data Collector
 * Run the custom Data Collector to analyze a traditional WebSphere app
 * Review the Transformation Advisor reports to see migration complexity, cost, and recommendations
@@ -17,7 +17,7 @@ When the reader has completed this code pattern, they will understand how to:
 
 ![architecture](doc/source/images/architecture.png)
 
-1. Developer accesses IBM Transformation Advisor on IBM Cloud Pak for Applications
+1. Developer accesses IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster.
 2. Developer downloads a custom Data Collector from IBM Transformation Advisor
 3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application(to be migrated) is running
 4. Data Collector analysis is uploaded (automatically or manually)
