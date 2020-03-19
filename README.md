@@ -1,17 +1,17 @@
-# Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster.
+# Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster
 
-In this code pattern, we will use Transformation Advisor from IBM Cloud Pak for Application to evaluate an on-premises traditional WebSphere application for deployment on OpenShift Cluster. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy the app in a Liberty container running on OpenShift. 
+In this code pattern, we will use Transformation Advisor on IBM Cloud Pak for Application to evaluate an on-premises traditional WebSphere application. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on IBM Cloud Pak for Applications running on the IBM managed OpenShift. 
 
-A sample web app is provided to demonstrate migration from on-premises to the cloud.
+A sample web app is provided to demonstrate migration from on-premises to the IBM Cloud.
 
 When the reader has completed this code pattern, they will understand how to:
 
-* Access IBM Cloud Pak for Applications on the IBM managed OpenShift cluster.(ICP4A)
+* Access IBM Cloud Pak for Applications on the IBM managed OpenShift cluster (ICP4A)
 * Use Transformation Advisor to create a custom Data Collector
 * Run the custom Data Collector to analyze a traditional WebSphere app
 * Review the Transformation Advisor reports to see migration complexity, cost, and recommendations
 * Generate artifacts to containerize the app
-* Move the modernized app to target Cloud Platform (which is IBM managed OpenShift Cluster) using a generated migration bundle
+* Move the modernized app to IBM Cloud Pak for Applications on IBM managed OpenShift Cluster using a generated migration bundle
 
 ## Flow
 
@@ -46,11 +46,11 @@ When the reader has completed this code pattern, they will understand how to:
 
 ## 1. Install IBM Cloud Pak for Applications
 
-Please refer to this [video](https://www.youtube.com/watch?v=gBI0ApHUFSs) to install IBM Cloud Pak for Applications.
+Please refer to this [video](https://www.youtube.com/watch?v=gBI0ApHUFSs) to install IBM Cloud Pak for Applications on the IBM managed OpenShift cluster.
 
 ## 2. Get started with the Transformation Advisor
 
-To get started with the Transformation Advisor:
+As part of IBM Cloud Pak for Applications, Transformation Advisor is a tool that helps businesses modernize and migrate their applications from on-premises environments to the cloud. Please refer [docs](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html) to learn more about Transformation Advisor. The following instructions will help you to get started with the Transformation Advisor:
 
 * Select the project `cp4a` on the Openshift console, and open `Cloud Pak for Applications`.
  ![open_cloudpak](doc/source/images/open_cloudpak.png)
@@ -234,9 +234,9 @@ If you wish to move the migrated bundle to a GitHub repo and then deploy the app
 - Goto https://github.com and create a new repo.
 - Move all the contents `under` the folder `migrated_app` to the repo.
 
-## 7. Deploy your application on CP4A
+## 7. Deploy your application on ICP4A
 
-***Login to OpenShift Cluster using CLI***
+***Login to Managed OpenShift Cluster using CLI***
 
 Go to `IBM Cloud Dashboard > Clusters > Click on your OpenShift Cluster > OpenShift web console` as shown.
 
@@ -256,9 +256,9 @@ Go to terminal and paste the copied login command. You will get logged into your
    $ oc new-project <project-name>
 ```
 
-If you have pushed your migration bundle into Github repo, then jump to section *Deploy the app to OpenShift using Github repo* and follow the steps.
+If you have pushed your migration bundle into Github repo, then jump to section *Deploy the app using Github repo* and follow the steps.
 
-### Create image and deploy app to OpenShift using the image created
+### Create image and deploy app using the image created
 
 ***Create/Get a route for the docker-registry***
 
@@ -324,7 +324,7 @@ If you have pushed your migration bundle into Github repo, then jump to section 
    $ docker push $IMAGE_REGISTRY/<project-name>/<image_name>:<image_tag>
  ```
  
- ***Deploy the app to OpenShift using the image created***
+ ***Deploy the app using the image created***
  
  Run the following commands to create an application using the image and to expose it as a service.
  
@@ -338,7 +338,7 @@ If you have pushed your migration bundle into Github repo, then jump to section 
  ```
  After this, jump to section *Access the migrated app*.
  
- ### Deploy the app to OpenShift using Github repo
+ ### Deploy the app using Github repo
  
  Run the following commands to create an application using the Github repository and to expose it as a service.
  
@@ -367,6 +367,7 @@ If you have pushed your migration bundle into Github repo, then jump to section 
 * [Build a secure microservices based banking application](https://developer.ibm.com/patterns/build-a-secure-microservices-based-application-with-transactional-flows/)
 * [Java EE Application Modernization with OpenShift](https://developer.ibm.com/patterns/jee-app-modernization-with-openshift/)
 * [Learn more about IBM Cloud Pak for Application](https://developer.ibm.com/series/ibm-cloud-pak-for-applications-video-series/)
+* [More about Transformation Advisor](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html))
 
 <!-- keep this -->
 ## License
