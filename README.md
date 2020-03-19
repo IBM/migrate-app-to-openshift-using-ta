@@ -344,7 +344,10 @@ If you have pushed your migration bundle into Github repo, then jump to section 
  
  ```
    $ oc new-app <github-repo-url> --name=modapp-openshift  ## wait for this command to complete
-   $ oc expose svc/modapp_openshift
+   
+   $ oc status ## to check whether the status of the previous command 
+   
+   $ oc expose svc/modapp_openshift  ## this command exposes service after creating app 
    
    # Verify the pods and services
    $ oc get pods       ## it will show a pod running with modapp-openshift-** name
