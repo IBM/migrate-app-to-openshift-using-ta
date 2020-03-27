@@ -261,14 +261,15 @@ If you have pushed your migration bundle into Github repo, then you got directly
 
 ### Build the image and deploy
 
-Go to the `migrated_app` folder that has the complete migration bundle.
+Go to the `migrated_app` folder that has the complete migration bundle. Run the below commands:
    
    ```
       $ ls
         Dockerfile	docs		pom.xml		target README.md	operator	src
       # Build the image
       $ oc new-build . --strategy=docker  --name service-a-openliberty-istio --name=modapp
-    ```
+   ```
+    
  ***Deploy the app using the image created***
  
  Run the following commands to create an application using the image and to expose it as a service.
