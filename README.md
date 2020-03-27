@@ -42,7 +42,7 @@ When the reader has completed this code pattern, they will understand how to:
 4. [Upload results, if necessary](#4-upload-results-if-necessary)
 5. [View the recommendations and cost estimates](#5-view-the-recommendations-and-cost-estimates)
 6. [Complete your migration bundle](#6-complete-your-migration-bundle)
-7. [Deploy your application on CP4A](#7-deploy-your-application-on-cp4a)
+7. [Deploy your application on ICP4A](#7-deploy-your-application-on-icp4a)
 
 ## 1. Install IBM Cloud Pak for Applications
 
@@ -233,6 +233,7 @@ Now the migration bundle is complete, and is ready to be deployed on IBM Cloud P
 If you wish to move the migrated bundle to a GitHub repo and then deploy the application, follow the below steps:
 - Goto https://github.com and create a new repo.
 - Move all the contents `under` the folder `migrated_app` to the repo.
+- Note the url to the GitHub repo. We will use it for the deploying the application to ICP4A in the next section.
 
 ## 7. Deploy your application on ICP4A
 
@@ -258,79 +259,24 @@ Go to terminal and paste the copied login command. You will get logged into your
 
 If you have pushed your migration bundle into Github repo, then you got directly to section *Deploy the app using Github repo* and follow the steps.
 
-### Create image and deploy app using the image created
+### Build the image and deploy
 
-***Create/Get a route for the docker-registry***
-
-```
-   $ oc project default
-   $ oc get route docker-registry
-    # If it does not show any route for docker-registry, follow the below steps to create route for deocker-registry.
-    
-   $ oc create route reencrypt --service=docker-registry
-   $ oc get route docker-registry
-   NAME              HOST/PORT                                              PATH   SERVICES     PORT   TERMINATION   WILDCARD
-   docker-registry   docker-registry-default.xxxx.containers.appdomain.cloud  docker-registry   5000-tcp   reencrypt     None
-    
-```
-   
-   The docker-registry URL is `docker-registry-default.<cluster_name>-<ID_string>.<region>.containers.appdomain.cloud`.
-   
-   Make a note of the Docker registry URL. Set it as a variable. 
-   
-    ```
-    export IMAGE_REGISTRY=docker-registry-default.<cluster_name>-<ID_string>.<region>.containers.appdomain.cloud
-    ```
-    
-***Build and Tag the docker image***
-
-   Change your directory to the directory where you have downloaded artifacts from Transformatoin Advisor. Unzip the downloaded bundle and then change directory to it.
+Go to the `migrated_app` folder that has the complete migration bundle. Run the below commands:
    
    ```
-      $ cd <unzipped-downloaded-bundle-directory-name>
       $ ls
-      Dockerfile	docs		operator	pom.xml		src
-      
-      # Build the docker image using the Dockerfile provided
-      $ docker build -t modapp:latest .
-      $ docker images |head -2       ## it will show the latest build image using the previous command
-      
-      $ docker tag modapp:latest $IMAGE_REGISTRY/<project-name>/<image_name>:<image_tag>
-      
+        Dockerfile	docs		pom.xml		target README.md	operator	src
+      # Build the image
+      $ oc new-build . --strategy=docker  --name service-a-openliberty-istio --name=modapp
    ```
-   Here, 
-   * docker-registry URL - the URL which was noted in previous step
-   * project-name - the new project created before to run your migrated application
-   * image_name - you can choose any name for the image
-   * image_tag - you can give any image tag. If you do not provide any tag for your image then default tag `latest` wil be taken.
-   
-***Push the docker image to OpenShift docker-registry***
-   
-   To push the image, you need to login to the OpenShift docker-registry using the following command.
-   
-    ```
-     docker login -u $(oc whoami) -p $(oc whoami -t) $IMAGE_REGISTRY
-    ```
-   
-   where -
-   * Username is the name displayed on OpenShift web console at the top-right corner after login
-   * Use the same token which was used in your OpenShift cluster login command
-   * Use the Docker registry URL noted earlier.
- 
- After successful login to docker-registry, push the image as:
- 
- ```
-   $ oc project <project-name>
-   $ docker push $IMAGE_REGISTRY/<project-name>/<image_name>:<image_tag>
- ```
- 
+    
  ***Deploy the app using the image created***
  
  Run the following commands to create an application using the image and to expose it as a service.
  
  ```
-   $ oc new-app --image-stream=<image_name>:<image_tag> --name=modapp-openshift
-   $ oc expose svc/modapp_openshift
+   $ oc new-app --image-stream=<image_name>:<image_tag> --name=modapp
+   $ oc expose svc/modapp
    
    # Verify the pods and services
    $ oc get pods       ## it will show a pod running with modapp-openshift-** name
@@ -343,11 +289,11 @@ If you have pushed your migration bundle into Github repo, then you got directly
  Run the following commands to create an application using the Github repository and to expose it as a service.
  
  ```
-   $ oc new-app <github-repo-url> --name=modapp-openshift  ## wait for this command to complete
+   $ oc new-app <github-repo-url> --name=modapp  ## wait for this command to complete
    
    $ oc status ## to check whether the status of the previous command 
    
-   $ oc expose svc/modapp_openshift  ## this command exposes service after creating app 
+   $ oc expose svc/modapp  ## this command exposes service after creating app 
    
    # Verify the pods and services
    $ oc get pods       ## it will show a pod running with modapp-openshift-** name
