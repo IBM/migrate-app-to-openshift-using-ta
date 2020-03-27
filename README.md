@@ -261,13 +261,11 @@ If you have pushed your migration bundle into Github repo, then you got directly
 
 ### Build the image and deploy
 
-Change your directory to the directory where you have downloaded artifacts from Transformatoin Advisor. Unzip the downloaded bundle and then change directory to it.
+Go to the `migrated_app` folder that has the complete migration bundle.
    
    ```
-      $ cd <unzipped-downloaded-bundle-directory-name>
       $ ls
-      Dockerfile	docs		operator	pom.xml		src
-      
+        Dockerfile	docs		pom.xml		target README.md	operator	src
       # Build the image
       $ oc new-build . --strategy=docker  --name service-a-openliberty-istio --name=modapp
     ```
@@ -277,7 +275,7 @@ Change your directory to the directory where you have downloaded artifacts from 
  
  ```
    $ oc new-app --image-stream=<image_name>:<image_tag> --name=modapp
-   $ oc expose svc/modapp_openshift
+   $ oc expose svc/modapp
    
    # Verify the pods and services
    $ oc get pods       ## it will show a pod running with modapp-openshift-** name
