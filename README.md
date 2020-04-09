@@ -1,8 +1,9 @@
-# Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster
+# Transform your traditional on-premises app and deploy it as a containerized app on a public or private cloud
+**Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster**
 
-In this code pattern, we will use Transformation Advisor on IBM Cloud Pak for Application to evaluate an on-premises traditional WebSphere application. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on IBM Cloud Pak for Applications running on the IBM managed OpenShift. 
+In this code pattern, we will use Transformation Advisor on IBM Cloud Pak for Applications to evaluate an on-premises traditional WebSphere application. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on IBM Cloud Pak for Applications running on the IBM managed OpenShift. 
 
-A sample web app is provided to demonstrate migration from on-premises to the IBM Cloud.
+A sample web app is provided to demonstrate migration from on-premises to the IBM Cloud Pak for Applications.
 
 When the reader has completed this code pattern, they will understand how to:
 
@@ -46,7 +47,9 @@ When the reader has completed this code pattern, they will understand how to:
 
 ## 1. Install IBM Cloud Pak for Applications
 
-Please refer to this [video](https://www.youtube.com/watch?v=gBI0ApHUFSs) to install IBM Cloud Pak for Applications on the IBM managed OpenShift cluster.
+Please refer to this [video](https://www.youtube.com/watch?v=gBI0ApHUFSs) to install IBM Cloud Pak for Applications on the IBM managed OpenShift cluster. 
+
+If in case you are not working on IBM managed OpenShift cluster, then refer this [link](https://www.ibm.com/support/knowledgecenter/SSCSJL_4.1.x/install-icpa-cli.html) to install IBM Cloud Pak for Applications.
 
 ## 2. Get started with the Transformation Advisor
 
@@ -237,7 +240,7 @@ If you wish to move the migrated bundle to a GitHub repo and then deploy the app
 
 ## 7. Deploy your application on ICP4A
 
-***Login to Managed OpenShift Cluster using CLI***
+***Login to IBM Managed OpenShift Cluster using CLI***
 
 Go to `IBM Cloud Dashboard > Clusters > Click on your OpenShift Cluster > OpenShift web console` as shown.
 
