@@ -21,17 +21,17 @@ NA
 
 If you have existing on-premises WebSphere Application Server apps and can benefit by moving them to the cloud, 
 this code pattern is for you. A simple demo app shows how to run a custom data collector to analyze an app and provide
-recommendations, cost estimates, and detailed reports to help with your transformation project using IBM Cloud Pak for Application on Managed OpenShift. You see how to generate the artifacts you need and get your application deployed and running in a Liberty container on the IBM Cloud Pak for Applications on Managed OpenShift Platform.
+recommendations, cost estimates, and detailed reports to help with your transformation project using IBM Cloud Pak for Applications on Managed OpenShift. You see how to generate the artifacts you need and get your application deployed and running in a Liberty container on the IBM Cloud Pak for Applications on IBM Managed OpenShift Platform.
 
 ## Description
 
-This code pattern uses the IBM Transformation Advisor tool a part of IBM Cloud Pak for Applications running on IBM managed OpenShift Platform to evaluate an on-premises traditional WebSphere Application Server application for deployment on IBM Cloud. See how to use the Transformation Advisor to get recommendations, how to download the generated migration bundle and use its artifacts to deploy the app in a Liberty container running on IBM Cloud Pak for Application on managed OpenShift Platform.
+This code pattern uses the IBM Transformation Advisor tool a part of IBM Cloud Pak for Applications running on IBM managed OpenShift Platform to evaluate an on-premises traditional WebSphere Application Server application for deployment on IBM Cloud. See how to use the Transformation Advisor to get recommendations, how to download the generated migration bundle and use its artifacts to deploy the app in a Liberty container running on IBM Cloud Pak for Applications on managed OpenShift Platform.
 
-A sample web app demonstrates a migration from an on-premises application to the IBM Cloud using IBM Cloud Pak for Application.
+A sample web app demonstrates a migration from an on-premises application to the IBM Cloud Pak for Applications.
 
 When you use this code pattern, you learn how to complete the following tasks:
 
- * Use Transformation Advisor on IBM Cloud Pak for Application to create a custom data collector.
+ * Use Transformation Advisor on IBM Cloud Pak for Applications to create a custom data collector.
  * Run the custom data collector to analyze a traditional WebSphere Application Server application.
  * Review the Transformation Advisor reports to see migration complexity, cost, and recommendations.
  * Generate artifacts to containerize the app.
@@ -54,7 +54,7 @@ When you use this code pattern, you learn how to complete the following tasks:
 
 ## Included components
 
-* [IBM Cloud Pak for Application](https://www.ibm.com/cloud/cloud-pak-for-applications): The IBM Cloud Pak for Applications provides a complete and consistent experience to speed development of applications. You can easily modernize your existing applications with IBM integrated tools and develop new cloud-native applications faster for deployment on any cloud.
+* [IBM Cloud Pak for Applications](https://www.ibm.com/cloud/cloud-pak-for-applications): The IBM Cloud Pak for Applications provides a complete and consistent experience to speed development of applications. You can easily modernize your existing applications with IBM integrated tools and develop new cloud-native applications faster for deployment on any cloud.
 
 * [Transformation Advisor](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html): As part of IBM Cloud Pak for Applications, Transformation Advisor is a tool that helps businesses modernize and migrate their applications from on-premises environments to the cloud. Not every workload should move to cloud. The right choice can yield large cost savings and speed time to market. The Transformation Advisor tool can help you decide.
    
@@ -72,4 +72,4 @@ When you use this code pattern, you learn how to complete the following tasks:
 
 * [Build a secure microservices based banking application](https://developer.ibm.com/patterns/build-a-secure-microservices-based-application-with-transactional-flows/)
 * [Java EE Application Modernization with OpenShift](https://developer.ibm.com/patterns/jee-app-modernization-with-openshift/)
-* [Learn more about IBM Cloud Pak for Application](https://developer.ibm.com/series/ibm-cloud-pak-for-applications-video-series/)
+* [Learn more about IBM Cloud Pak for Applications](https://developer.ibm.com/series/ibm-cloud-pak-for-applications-video-series/)
