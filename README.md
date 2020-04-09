@@ -1,4 +1,4 @@
-# Transform your traditional on-premises app and deploy it as a containerized app on a public or private cloud
+# Transform your traditional on-premises app and deploy it as a containerized app on a public cloud
 **Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster**
 
 In this code pattern, we will use Transformation Advisor on IBM Cloud Pak for Applications to evaluate an on-premises traditional WebSphere application. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on IBM Cloud Pak for Applications running on the IBM managed OpenShift. 
