@@ -234,7 +234,7 @@ Let us now copy the sources and dependencies to the `migrated-app` folder:
 ```
 Now the migration bundle is complete, and is ready to be deployed on IBM Cloud Pak for Applications.
 
-If you wish to move the migrated bundle to a GitHub repo and then deploy the application, follow the below steps:
+We can move the migrated bundle to a GitHub repo and then deploy the application, follow the below steps:
 - Goto https://github.com and create a new repo.
 - Move all the contents `under` the folder `migrated_app` to the repo.
 - Note the url to the GitHub repo. We will use it for the deploying the application to ICP4A in the next section.
@@ -261,33 +261,6 @@ Go to terminal and paste the copied login command. You will get logged into your
    $ oc new-project <project-name>
 ```
 
-If you have pushed your migration bundle into Github repo, then you got directly to section *Deploy the app using Github repo* and follow the steps.
-
-### Build the image and deploy
-
-Go to the `migrated_app` folder that has the complete migration bundle. Run the below commands:
-   
-   ```
-      $ ls
-        Dockerfile	docs		pom.xml		target README.md	operator	src
-      # Build the image
-      $ oc new-build . --strategy=docker  --name service-a-openliberty-istio --name=modapp
-   ```
-    
- ***Deploy the app using the image created***
- 
- Run the following commands to create an application using the image and to expose it as a service.
- 
- ```
-   $ oc new-app --image-stream=<image_name>:<image_tag> --name=modapp
-   $ oc expose svc/modapp
-   
-   # Verify the pods and services
-   $ oc get pods       ## it will show a pod running with modapp-openshift-** name
-   $ oc get services   ## it will show a service running with modapp-openshift name
- ```
- After this, jump to section *Access the migrated app*.
- 
  ### Deploy the app using Github repo
  
  Run the following commands to create an application using the Github repository and to expose it as a service.
