@@ -191,17 +191,18 @@ Select `View migration plan` for the Application you wish to migrate.
 
 ![add_dependencies](doc/source/images/plan.png)
 
+It will show you the `Migration Bundle`. If you are working on OpenShift Cluster 4.x, choose ***Binary*** as `Build type` and ***deselect Use*** for `Use Accelerator for Teams Collection`.
+
 Transformation Advisor will automatically generate the artifacts you need to get your application deployed and running in a Liberty container on OpenShift Cluster, including...
 
 * server.xml 
 * pom.xml
 * Dockerfile
 * Operator Resources
-* ..
 
 ![add_dependencies](doc/source/images/added_war.png)
 
-Click on `Download bundle` to download the bundle.
+Click on `Download bundle`/`Download` to download the bundle.
 
 Unzip the bundle contents into a folder `migrated_app`. Now, let us add the source code and other dependencies to complete the bundle.
 
