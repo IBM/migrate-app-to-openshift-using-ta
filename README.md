@@ -308,7 +308,7 @@ Refer to sections [section 8](https://github.com/IBM/build-deploy-cloud-native-a
 
    To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
    
-   `OpenShift Web Console > <Go to your project> > Overview`
+   `OpenShift Web Console > <Go to your project> > Routes`
    ![url](doc/source/images/url.png)
    
    Open the noted url by adding the "/resorts" context path to see the below page:
