@@ -187,24 +187,49 @@ The binary scanner has an inventory report that helps you examine what’s in yo
 
 ## 6. Complete your migration bundle
 
-Select `View migration plan` for the Application you wish to migrate.
+We will generate a migration bundle and move it to a GitHub repo. 
+
+### Create a GitHub repo
+
+Login to [GitHub](https://github.com]. Create a new repository `migrated-app`.
+
+On the TA console, now select `View migration plan` for the application you wish to migrate.
 
 ![add_dependencies](doc/source/images/plan.png)
 
-It will show you the `Migration Bundle`. If you are working on OpenShift Cluster 4.x, choose ***Binary*** as `Build type` and ***deselect Use*** for `Use Accelerator for Teams Collection`.
+It will show you the `Migration Bundle`. If you wish to use the "Accelerator for Teams Collection" skip the next section.
 
-Transformation Advisor will automatically generate the artifacts you need to get your application deployed and running in a Liberty container on OpenShift Cluster, including...
+### 6.1 Build the bundle without Accelerator for Teams Collection
+
+In the `Migration bundle` screen, un-select the `Use the Accelerator for Teams Collection` option. Enter the url of the GitHub repo `migrated-app` we created earlier for `Git repository`. Enter  the `username` and `password` for the GitHub repo, and click `Send to Git` button.
+
+![Reg migration bundle](doc/source/images/send_reg_git.png)
+
+
+
+Transformation Advisor will automatically populate the artifacts you need to get your application deployed and running in a Liberty container on OpenShift Cluster, including...
 
 * server.xml 
 * pom.xml
 * Dockerfile
 * Operator Resources
 
-![add_dependencies](doc/source/images/added_war.png)
 
-Click on `Download bundle`/`Download` to download the bundle.
+### 6.2 Build the bundle with Accelerator for Teams Collection
 
-Unzip the bundle contents into a folder `migrated_app`. Now, let us add the source code and other dependencies to complete the bundle.
+In the `Migration bundle` screen, un-select the `Use the Accelerator for Teams Collection` option. Enter the url of the GitHub repo `migrated-app` we created earlier for `Git repository`. Enter  the `username` and `password` for the GitHub repo, and click `Send to Git` button.
+
+![Acc migration bundle](doc/source/images/send_acc_git.png)
+
+
+Transformation Advisor will automatically populate the artifacts you need to get your application deployed and running in a Liberty container on OpenShift Cluster, including...
+
+* appsody-config.yaml
+* app-deploy.yaml
+* pom.xml
+* server.xml
+
+### 6.3 Add sources to the migration bundle
 
 Clone this repo by running the below command:
 ```
@@ -212,34 +237,31 @@ git clone https://github.com/IBM/migrate-app-to-openshift-using-cp4a
 ```
 This creates a folder `migrate-app-to-openshift-using-cp4a` with all the contents from the repo.
 
+Clone the `migrated-app` repo you created earlier in your GitHub account:
+```
+git clone https://github.com/<username>/migrated-app
+```
+This creates a folder `migrated-app` with all the contents from the repo.
+
 Let us now copy the sources and dependencies to the `migrated-app` folder:
 - Copy the folder `migrate-app-to-openshift-using-cp4a/src` with contents to `migrated_app` folder.
-- Copy the file `migrate-app-to-openshift-using-cp4a/pom.xml` to `migrated_app` folder. Modify the configuration for the `maven-war-plugin` in the `pom.xml` as shown below:
-```
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-          <packagingExcludes>pom.xml</packagingExcludes>
-          <outputDirectory>target</outputDirectory>
-        </configuration>
-      </plugin>
- ```
 - Copy the contents under the folder `migrate-app-to-openshift-using-cp4a/WebContent` to `migrated_app/src/main/webapp`.
-- Modify the file `location` attribute of the application tag in the file `migrated_app/src/main/liberty/config/server.xml` as shown below:
+
+Run the below commands to push the sourcs to the `migrated-app` GitHub repo.
 ```
-<application id="modresorts" location="modresorts-1.0.war" name="modresorts-1_0_war" type="war"/>
+git add *
+git commit
+git push
 ```
+
 Now the migration bundle is complete, and is ready to be deployed on IBM Cloud Pak for Applications.
 
-We can move the migrated bundle to a GitHub repo and then deploy the application, follow the below steps:
-- Goto https://github.com and create a new repo.
-- Move all the contents `under` the folder `migrated_app` to the repo.
-- Note the url to the GitHub repo. We will use it for the deploying the application to ICP4A in the next section.
 
 ## 7. Deploy your application on ICP4A
+
+If you are using the "Accelerator for Teams Collection" skip the next section.
+
+### 7.1 Deploy without Accelerator for Teams Collection
 
 ***Login to IBM Managed OpenShift Cluster using CLI***
 
@@ -261,7 +283,7 @@ Go to terminal and paste the copied login command. You will get logged into your
    $ oc new-project <project-name>
 ```
 
- ### Deploy the app using Github repo
+ #### Deploy the app using Github repo
  
  Run the following commands to create an application using the Github repository and to expose it as a service.
  
@@ -277,7 +299,12 @@ Go to terminal and paste the copied login command. You will get logged into your
    $ oc get services   ## it will show a service running with modapp-openshift name
  ```
 
-### Access the migrated app
+### 7.2 Deploy with Accelerator for Teams Collection
+
+Refer to sections [section 8](https://github.com/IBM/build-deploy-cloud-native-application-using-cp4a#8-create-token-for-your-github) and [section 9](https://github.com/IBM/build-deploy-cloud-native-application-using-cp4a#9-configure-and-execute-tekton-pipeline) to configure and execute a `Tekton` pipeline to deploy the application.
+
+
+### 7.3 Access the migrated app
 
    To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
    
@@ -286,7 +313,7 @@ Go to terminal and paste the copied login command. You will get logged into your
    
    Open the noted url by adding the "/resorts" context path to see the below page:
    ![resorts](doc/source/images/resorts.png)
-   
+
 
 ## Learn More
 
