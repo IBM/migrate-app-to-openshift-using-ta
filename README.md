@@ -191,7 +191,7 @@ We will generate a migration bundle and move it to a GitHub repo.
 
 ### Create a GitHub repo
 
-Login to [GitHub](https://github.com]. Create a new repository `migrated-app`.
+Login to [GitHub](https://github.com). Create a new repository `migrated-app`.
 
 On the TA console, now select `View migration plan` for the application you wish to migrate.
 
