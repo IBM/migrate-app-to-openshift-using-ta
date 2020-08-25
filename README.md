@@ -55,7 +55,7 @@ If in case you are not working on IBM managed OpenShift cluster, then refer this
 
 As part of IBM Cloud Pak for Applications, Transformation Advisor is a tool that helps businesses modernize and migrate their applications from on-premises environments to the cloud. Please refer [docs](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html) to learn more about Transformation Advisor. The following instructions will help you to get started with the Transformation Advisor:
 
-* Select the project `cp4a` on the Openshift console, and open `Cloud Pak for Applications`.
+* Open `OpenShift Web Console` and then click on `Cloud Pak Console`.
  ![open_cloudpak](doc/source/images/open_cloudpak.png)
  
 * Open `Transformation Advisor`
@@ -85,11 +85,13 @@ The Data Collector identifies which profiles are associated with the WebSphere i
 
 ### Download the Data Collector
 
-The Data Collector tab should now display the screen shown below. The Data Collector is a downloadable zip file that needs to be extracted and run on your target server where the applications you wish to migrate are located (i.e., your WAS application server machine). You should choose the correct Data Collector for your target server’s operating system.
+You would see the screen shown below. The Data Collector is a downloadable zip file that needs to be extracted and run on your target server where the applications you wish to migrate are located (i.e., your WAS application server machine).
 
-* Download the zip file to your browser's download directory.
+* Click on `Data Collector`.
 
   ![dc_download](doc/source/images/dc_download.png)
+ 
+* You should choose the correct Data Collector for your target server’s operating system and then Download.
 
 ### Install and run
 
@@ -115,20 +117,20 @@ Once downloaded, follow these steps:
 
 ## 4. Upload results, if necessary
 
-If there is a connection between your system and your new collection, the Data Collector will send your application data for you. Use the `Recommendations` tab to see the results and continue with the following section:
-[5. View the recommendations and cost estimates](#5-view-the-recommendations-and-cost-estimates).
+If there is a connection between your system and your new collection, the Data Collector will send your application data for you. You can see the results and continue with the following section:
+[View the recommendations and cost estimates](#5-view-the-recommendations-and-cost-estimates).
 
-If there is no connection, the Data Collector will return a .zip file containing your application data. Use the `Recommendations` tab to upload the .zip file(s).
+If there is no connection, the Data Collector will return a .zip file containing your application data. Use the `Upload data` option to upload the .zip file(s).
 
 * Find the results for each profile. These are zip file(s) created by the Data Collector with the same name as the profile. You will find the zip file(s) in the transformationadvisor directory of the Data Collector.
 
-* Copy the zip file(s) to your local system and select them use the `Drop or Add File` button.
+* Copy the zip file(s) to your local system and select them using the `Drop or Add File` button.
 
 * Use the `Upload` button to upload the files.
 
 ## 5. View the recommendations and cost estimates
 
-Selecting the `Recommendations` tab after the Data Collector has completed and uploaded results should display a screen similar to that shown below. Please be aware that any cost estimates displayed by the tool are high-level estimates only and may vary widely based on skills and other factors not considered by the tool.
+Once the Data Collector has completed and uploaded results, it should display a screen similar to that shown below. Please be aware that any cost estimates displayed by the tool are high-level estimates only and may vary widely based on skills and other factors not considered by the tool.
 
 > Note: You can use the `Advanced Settings` gear icon to change the `Dev cost multiplier` and `Overhead cost` and adjust the estimates for your team.
 
@@ -232,44 +234,44 @@ Transformation Advisor will automatically populate the artifacts you need to get
 ### 6.3 Add sources to the migration bundle
 
 Clone this repo by running the below command:
-```
-git clone https://github.com/IBM/migrate-app-to-openshift-using-cp4a
-```
+ ```
+ git clone https://github.com/IBM/migrate-app-to-openshift-using-cp4a
+ ```
 This creates a folder `migrate-app-to-openshift-using-cp4a` with all the contents from the repo.
 
 Clone the `migrated-app` repo you created earlier in your GitHub account:
-```
-git clone https://github.com/<username>/migrated-app
-```
+ ```
+ git clone https://github.com/<username>/migrated-app
+ ```
 This creates a folder `migrated-app` with all the contents from the repo.
 
 Let us now copy the sources and dependencies to the `migrated-app` folder:
-- Copy and merge the folder `migrate-app-to-openshift-using-cp4a/src` with contents to `migrated_app/src` folder. 
-- Coopy the file pom.xml from `migrate-app-to-openshift-using-cp4a` to `migrated-app`. Replace the `pom.xml` that is under `migrated_app`.    Modify the configuration for the maven-war-plugin in the pom.xml as shown below:
-```
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-          <packagingExcludes>pom.xml</packagingExcludes>
-          <outputDirectory>target</outputDirectory>
-        </configuration>
-      </plugin>
-```
-- Copy and merge the contents under the folder `migrate-app-to-openshift-using-cp4a/WebContent` to `migrated_app/src/main/webapp`.
-- Modify the file location attribute of the application tag in the file migrated_app/src/main/liberty/config/server.xml as shown below:
-```
-<application id="modresorts" location="modresorts-1.0.war" name="modresorts-1_0_war" type="war"/>
-```
+- Copy and merge the contents of folder `migrate-app-to-openshift-using-cp4a/src` to `migrated_app/src` folder. 
+- Copy and merge the contents from the folder `migrate-app-to-openshift-using-cp4a/WebContent` to `migrated_app/src/main/webapp`.
+- Copy the file pom.xml from `migrate-app-to-openshift-using-cp4a` to `migrated-app`. It will replace the `pom.xml` that is under `migrated_app`. Modify the configuration for the maven-war-plugin in the pom.xml as shown below:
+  ```
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>2.6</version>
+          <configuration>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+            <packagingExcludes>pom.xml</packagingExcludes>
+            <outputDirectory>target</outputDirectory>
+          </configuration>
+        </plugin>
+  ```
+- Modify the file location attribute of the application tag in the file `migrated_app/src/main/liberty/config/server.xml` as shown below:
+  ```
+  <application id="modresorts" location="modresorts-1.0.war" name="modresorts-1_0_war" type="war"/>
+  ```
 
 Run the below commands to push the sourcs to the `migrated-app` GitHub repo.
-```
-git add *
-git commit
-git push
-```
+ ```
+ git add *
+ git commit -m "Add source code files"
+ git push
+ ```
 
 Now the migration bundle is complete, and is ready to be deployed on IBM Cloud Pak for Applications.
 
@@ -286,15 +288,10 @@ Go to `IBM Cloud Dashboard > Clusters > Click on your OpenShift Cluster > OpenSh
 
 ![openshift-web-console](doc/source/images/openshift-web-console.png)
 
-It will open a OpenShift web console for you. Get the login command from console as shown in the below snapshot.
-
-![copy-login-command](doc/source/images/copy-login-command.png)
-
-Go to terminal and paste the copied login command. You will get logged into your OpenShift cluster.
+On web console, click the menu in the upper right corner (the label contains your email address), and select Copy Login Command. Click on Display token, copy the login command and paste the command into your terminal window. 
 
 ```
-   $ oc login https://xxx.containers.cloud.ibm.com:xxx --token=xxxx
-   Logged into "https://xxx.containers.cloud.ibm.com:xxx" as "xxxx" using the token provided.
+   $ oc login --token=xxxx --server=https://xxxx.containers.cloud.ibm.com:xxx
    
    # Create a new project to run your application
    $ oc new-project <project-name>
@@ -307,7 +304,7 @@ Go to terminal and paste the copied login command. You will get logged into your
  ```
    $ oc new-app <github-repo-url> --name=modapp  ## wait for this command to complete
    
-   $ oc status ## to check whether the status of the previous command 
+   $ oc status ## to check the status of the previous command and wait till it says "deployment #1 deployed..."
    
    $ oc expose svc/modapp  ## this command exposes service after creating app 
    
@@ -325,8 +322,13 @@ Refer to sections [section 8](https://github.com/IBM/build-deploy-cloud-native-a
 
    To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
    
-   `OpenShift Web Console > <Go to your project> > Routes`
-   ![url](doc/source/images/url.png)
+   `OpenShift Web Console > <Go to your project>`
+   
+   Or run the following command to get the route of your deployed application.
+   
+   ```
+   $ oc get routes <namespace-name>
+   ```
    
    Open the noted url by adding the "/resorts" context path to see the below page:
    ![resorts](doc/source/images/resorts.png)
