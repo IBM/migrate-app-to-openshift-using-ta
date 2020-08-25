@@ -244,7 +244,8 @@ git clone https://github.com/<username>/migrated-app
 This creates a folder `migrated-app` with all the contents from the repo.
 
 Let us now copy the sources and dependencies to the `migrated-app` folder:
-- Copy and merge the folder `migrate-app-to-openshift-using-cp4a/src` with contents to `migrated_app/src` folder.
+- Copy and merge the folder `migrate-app-to-openshift-using-cp4a/src` with contents to `migrated_app/src` folder. 
+- Coopy the file pom.xml from `migrate-app-to-openshift-using-cp4a` to `migrated-app`. Replace the `pom.xml` that is under `migrated_app`.
 - Copy and merge the contents under the folder `migrate-app-to-openshift-using-cp4a/WebContent` to `migrated_app/src/main/webapp`.
 
 Run the below commands to push the sourcs to the `migrated-app` GitHub repo.
