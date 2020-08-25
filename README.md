@@ -245,8 +245,24 @@ This creates a folder `migrated-app` with all the contents from the repo.
 
 Let us now copy the sources and dependencies to the `migrated-app` folder:
 - Copy and merge the folder `migrate-app-to-openshift-using-cp4a/src` with contents to `migrated_app/src` folder. 
-- Coopy the file pom.xml from `migrate-app-to-openshift-using-cp4a` to `migrated-app`. Replace the `pom.xml` that is under `migrated_app`.
+- Coopy the file pom.xml from `migrate-app-to-openshift-using-cp4a` to `migrated-app`. Replace the `pom.xml` that is under `migrated_app`.    Modify the configuration for the maven-war-plugin in the pom.xml as shown below:
+```
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <packagingExcludes>pom.xml</packagingExcludes>
+          <outputDirectory>target</outputDirectory>
+        </configuration>
+      </plugin>
+```
 - Copy and merge the contents under the folder `migrate-app-to-openshift-using-cp4a/WebContent` to `migrated_app/src/main/webapp`.
+- Modify the file location attribute of the application tag in the file migrated_app/src/main/liberty/config/server.xml as shown below:
+```
+<application id="modresorts" location="modresorts-1.0.war" name="modresorts-1_0_war" type="war"/>
+```
 
 Run the below commands to push the sourcs to the `migrated-app` GitHub repo.
 ```
