@@ -277,7 +277,7 @@ Push the application to a container registry
 docker push user-name/migrated-mod-resorts:v1
 ```
 
-## 7. Deploy your application on ICP4A
+## 8. Deploy your application to OpenShift
 
 ***Login to IBM Managed OpenShift Cluster using CLI***
 
@@ -311,7 +311,7 @@ $ oc get pods       ## it will show a pod running with modapp-openshift-** name
 $ oc get services   ## it will show a service running with modapp-openshift name
 ```
 
-### 7.3 Access the migrated app
+#### Access the migrated app
 
 To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
 
