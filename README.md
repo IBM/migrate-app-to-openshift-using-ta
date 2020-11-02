@@ -221,26 +221,25 @@ Unzip the bundle, it should look like this:
 ```
 .
 ├── Dockerfile
-├── pom.xml
 ├── operator
-│   ├── application
-│   │   ├── application-cr.yaml
-│   │   └── application-crd.yaml
-│   └── deploy
-│       ├── operator.yaml
-│       ├── role_bindeing.yaml
-│       ├── role.yaml
-│       └── service_account.yaml
+│   ├── application
+│   │   ├── application-cr.yaml
+│   │   └── application-crd.yaml
+│   └── deploy
+│       ├── operator.yaml
+│       ├── role.yaml
+│       ├── role_binding.yaml
+│       └── service_account.yaml
+├── pom.xml
 └── src
     └── main
         ├── liberty
-        │   └── config
-        │   │   └── server.xml
-        │   └── lib
-        │       └── .gitkeep
+        │   ├── config
+        │   │   └── server.xml
+        │   └── lib
         └── webapp
             ├── WEB-INF
-            │   └── web.xml
+            │   └── web.xml
             └── index.html
 ```
 
