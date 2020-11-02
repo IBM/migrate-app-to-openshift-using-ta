@@ -197,11 +197,13 @@ On the TA console, now select `View migration plan` for the application you wish
 
 It will show you the `Migration Bundle`.
 
-### 6.1 Build the bundle without Accelerator for Teams Collection
+### 6.1 Build the bundle
 
-Login to [GitHub](https://github.com). Create a new repository `migrated-mod-resorts`.
+In the `Migration bundle` screen choose the following options:
 
-In the `Migration bundle` screen, de-select the `Use the Accelerator for Teams Collection` option.
+* Do **NOT** select the `Use the Accelerator for Teams Collection` option
+* Use the **Binary** build type option
+* Upload the previously used `mod-resorts.jar` file
 
 ![Reg migration bundle](doc/source/images/send_reg_git.png)
 
@@ -212,7 +214,7 @@ Transformation Advisor will automatically populate the artifacts you need to get
 * Dockerfile
 * Operator Resources
 
-Download the zip / bundle locally
+Download the zip file locally.
 
 ### 6.3 Add sources to the migration bundle
 
@@ -245,7 +247,7 @@ Unzip the bundle, it should look like this:
 
 Navigate to `src/main/liberty/config` and update the `server.xml` file by commenting out the `webApplication` element.
 
-Run the below commands to push the sourcs to the `migrated-mod-resorts` GitHub repo.
+**Optionally**, create a new repo on [GitHub](https://github.com) called `migrated-mod-resorts` and run the below commands to push the source files up.
 
 ```bash
 git add *
@@ -253,7 +255,7 @@ git commit -m "Add source code files"
 git push
 ```
 
-Now the migration bundle is complete, and is ready to be deployed on IBM Cloud Pak for Applications.
+For an example repo, check out <https://github.com/stevemar/migrated-mod-resorts>.
 
 ## 7. Test application locally
 
@@ -271,11 +273,13 @@ docker run -p 9080:9080 user-name/migrated-mod-resorts:v1
 
 Opening a browser to `localhost:9080/resorts` should show the application running.
 
-Push the application to a container registry
+**Optionally**, create a new repository on an image registry, like [DockerHub](https://hub.docker.com/), and run the command below to push your image.
 
 ```bash
 docker push user-name/migrated-mod-resorts:v1
 ```
+
+For an example image, check out <https://hub.docker.com/r/stevemar/migrated-mod-resorts>.
 
 ## 8. Deploy your application to OpenShift
 
@@ -287,7 +291,7 @@ Go to `IBM Cloud Dashboard > Clusters > Click on your OpenShift Cluster > OpenSh
 
 On web console, click the menu in the upper right corner (the label contains your email address), and select Copy Login Command. Click on Display token, copy the login command and paste the command into your terminal window. 
 
-```
+```bash
 $ oc login --token=xxxx --server=https://xxxx.containers.cloud.ibm.com:xxx
 
 # Create a new project to run your application
