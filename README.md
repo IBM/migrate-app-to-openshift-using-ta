@@ -1,18 +1,17 @@
 # Transform your traditional on-premises app and deploy it as a containerized app on a public cloud
-**Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster**
 
-In this code pattern, we will use Transformation Advisor on IBM Cloud Pak for Applications to evaluate an on-premises traditional WebSphere application. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on IBM Cloud Pak for Applications running on the IBM managed OpenShift. 
+> **Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster**
 
-A sample web app is provided to demonstrate migration from on-premises to the IBM Cloud Pak for Applications.
+In this code pattern, we will use Transformation Advisor on IBM Cloud Pak for Applications to evaluate an on-premises traditional WebSphere application. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on IBM Cloud Pak for Applications running on the IBM managed OpenShift. *A sample web app is provided to demonstrate migration from on-premises to the IBM Cloud Pak for Applications.*
 
 When the reader has completed this code pattern, they will understand how to:
 
-* Access IBM Cloud Pak for Applications on the IBM managed OpenShift cluster (ICP4A)
+* Access IBM Cloud Pak for Applications on the IBM managed OpenShift cluster (CP4Apps)
 * Use Transformation Advisor to create a custom Data Collector
-* Run the custom Data Collector to analyze a traditional WebSphere app
+* Run the custom Data Collector to analyze a traditional WebSphere application
 * Review the Transformation Advisor reports to see migration complexity, cost, and recommendations
-* Generate artifacts to containerize the app
-* Move the modernized app to IBM Cloud Pak for Applications on IBM managed OpenShift Cluster using a generated migration bundle
+* Generate artifacts to containerize the application
+* Move the modernized application to IBM Cloud Pak for Applications on IBM managed OpenShift Cluster using a generated migration bundle
 
 ## Flow
 
@@ -27,98 +26,103 @@ When the reader has completed this code pattern, they will understand how to:
 7. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
 8. Developer creates an app using the pushed image and runs the containerized app
 
-
 ## Pre-requisites
 
-* [IBM Cloud account](https://cloud.ibm.com/) 
-* [IBM managed OpenShift Cluster instance](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift&bss_account=46816354d9cb773bae86c226aa74c8cc&ims_account=2001776)
+* [IBM Cloud account](https://cloud.ibm.com/)
+* [IBM managed OpenShift Cluster instance](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift)
 * [OpenShift CLI](https://cloud.ibm.com/docs/openshift?topic=openshift-openshift-cli)
 * [Docker](https://www.docker.com/)
 
 ## Steps
 
 1. [Install IBM Cloud Pak for Applications](#1-install-ibm-cloud-pak-for-applications)
-2. [Get started with the Transformation Advisor](#2-get-started-with-the-transformation-advisor)
-3. [Download and run the Data Collector](#3-download-and-run-the-data-collector)
-4. [Upload results, if necessary](#4-upload-results-if-necessary)
-5. [View the recommendations and cost estimates](#5-view-the-recommendations-and-cost-estimates)
-6. [Complete your migration bundle](#6-complete-your-migration-bundle)
-7. [Deploy your application on ICP4A](#7-deploy-your-application-on-icp4a)
+2. [Launch Transformation Advisor](#2-launch-transformation-advisor)
+3. [Run the Data Collector](#3-run-the-data-collector)
+4. [Upload results](#4-upload-results)
+5. [View recommendations](#5-view-recommendations)
+6. [Complete the migration bundle](#6-complete-the-migration-bundle)
+7. [Test the application locally](7-test-the-application-locally)
+8. [Deploy the application to OpenShift](#8-deploy-your-application-on-icp4a)
 
 ## 1. Install IBM Cloud Pak for Applications
 
-Please refer to this [video](https://www.youtube.com/watch?v=gBI0ApHUFSs) to install IBM Cloud Pak for Applications on the IBM managed OpenShift cluster. 
+Please refer to the [YouTube video](https://www.youtube.com/watch?v=gBI0ApHUFSs) below to install [IBM Cloud Pak for Applications](https://cloud.ibm.com/catalog/content/ibm-cp-applications-b4fbe4b9-a9de-406a-94de-5e0c7dc20bf7-global) on an IBM managed Red Hat OpenShift cluster.
 
-If in case you are not working on IBM managed OpenShift cluster, then refer this [link](https://www.ibm.com/support/knowledgecenter/SSCSJL_4.1.x/install-icpa-cli.html) to install IBM Cloud Pak for Applications.
+[![CP4Apps Install Video](https://img.youtube.com/vi/gBI0ApHUFSs/0.jpg)](https://www.youtube.com/watch?v=gBI0ApHUFSs)
 
-## 2. Get started with the Transformation Advisor
+Refer to the [IBM Cloud Pak for Applications Documentation](https://www.ibm.com/support/knowledgecenter/SSCSJL_4.1.x/install-icpa-cli.html) for instructions on how to install "IBM Cloud Pak for Applications" on a non-managed Red Hat OpenShift cluster.
 
-As part of IBM Cloud Pak for Applications, Transformation Advisor is a tool that helps businesses modernize and migrate their applications from on-premises environments to the cloud. Please refer [docs](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html) to learn more about Transformation Advisor. The following instructions will help you to get started with the Transformation Advisor:
+## 2. Launch Transformation Advisor
 
-* Open `OpenShift Web Console` and then click on `Cloud Pak Console`.
- ![open_cloudpak](doc/source/images/open_cloudpak.png)
- 
-* Open `Transformation Advisor`
-  ![open_ta](doc/source/images/open_ta.png)
+As part of IBM Cloud Pak for Applications, Transformation Advisor is a tool that helps businesses modernize and migrate their applications from on-premises environments to the cloud. Refer to the [Transformation Advisor Documentation](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html) to learn more about it. To launch Transformation Advisor perform the following steps:
 
-* On the welcome screen, click the `+` to add a workspace.
+The from navigation bar of the OpenShift console Open click on the `Cloud Pak Console` option.
 
-  ![welcome_to_ta](doc/source/images/welcome_to_ta.png)
+![open_cloudpak](doc/source/images/open_cloudpak.png)
 
-* Create a new workspace that will be used to house your recommendations. The workspace name can be any string you want, such as the project name or the name for the portfolio of applications you will be analysing -- basically anything that will help you to easily identify your work when you return to it at a later date.
+Choose to launch `Transformation Advisor`
 
-  ![new_workspace](doc/source/images/new_workspace.png)
+![open_ta](doc/source/images/open_ta.png)
 
-* You will then be asked to enter a collection name. This is an opportunity for you to subdivide your work even further into a more focused grouping. It would typically be associated with a single run of the Data Collector and may be the name of the individual WAS server that you will be running the Data Collector on. It can be any string and can be deleted later -– so don’t be afraid to get creative!
+On the welcome screen, click the `+` to add a workspace.
 
-  ![new_collection](doc/source/images/new_collection.png)
+![welcome_to_ta](doc/source/images/welcome_to_ta.png)
 
-* Hit `Let’s Go`.
+Create a new workspace that will be used to house your recommendations. The workspace name can be any string you want, such as the project name or the name for the portfolio of applications you will be analysing.
 
-## 3. Download and run the Data Collector
+![new_workspace](doc/source/images/new_workspace.png)
 
-> If you don't want to run our sample app and the Data Collector in your own WAS environment, you can use the files that we already collected and saved in [data/examples](data/examples). Just upload them in [the next step](#4-upload-results-if-necessary) to continue.
+You will then be asked to enter a collection name. This is an opportunity for you to subdivide your work even further into a more focused grouping. It would typically be associated with a single run of the Data Collector and may be the name of the individual WAS server that you will be running the Data Collector on.
+
+![new_collection](doc/source/images/new_collection.png)
+
+## 3. Run the Data Collector
+
+> **NOTE**: If you do not wish to run the Data Collector on your own WebSphere environment you can use the sample files we saved in [data/examples](data/examples) folder. Skip to the [Next section: "Upload results"](#4-upload-results) to continue.
 
 The Data Collector identifies which profiles are associated with the WebSphere installation along with the installed WebSphere and Java versions. It also identifies all WebSphere applications within each deployment manager and standalone profile. The tool generates one folder per profile and places analysis results within that directory.
 
-> Note: The Data Collector will collect configuration information in WAS installations at version 7 or later.
+> **NOTE**: The Data Collector is compatiable with WebSphere Application Server 7.x or later.
 
-### Download the Data Collector
+### 3.1 Download the Data Collector
 
-You would see the screen shown below. The Data Collector is a downloadable zip file that needs to be extracted and run on your target server where the applications you wish to migrate are located (i.e., your WAS application server machine).
+From your Transformation Advisor's project you will see an option to download the Data Collector. Click on `Data Collector` to start downloaing the zip file. Choose a version that is compatible with your target server’s operating system.
 
-* Click on `Data Collector`.
+![dc_download](doc/source/images/dc_download.png)
 
-  ![dc_download](doc/source/images/dc_download.png)
- 
-* You should choose the correct Data Collector for your target server’s operating system and then Download.
-
-### Install and run
+### 3.2 Move and unzip the Data Collector
 
 > **WARNING:** The Data Collector is likely to consume a significant amount of resources while gathering data. Therefore, we recommend you run the tool in a pre-production environment. Depending on the number, size and complexity of your applications the Data Collector may take quite some time to execute and upload results.
 
-Once downloaded, follow these steps:
+Once the Data Collector is downloaded locally, move the zip file from your local machine to your target server. You can do this in many ways, below is just one suggestion.
 
-* Copy/FTP from your download directory to your target server. Put the zip file in a directory where you have read-write-execute access.
+```bash
+sftp user@hostname <<< $'put transformationadvisor-2.1_Linux_example.tgz'
+```
 
-* Decompress the downloaded file. Your file name will be specific to your platform/version/collection.
-  ```
-  tar xvfz transformationadvisor-2.1_Linux_example.tgz
-  ```
+Unzip the file. Ensure the unzipped file is in a directory where you have read, write, and execute access.
 
-* Go to the Data Collector directory.
-  ```
-  cd transformationadvisor-2.1
-  ```
-* Perform analysis of app, .ear and .war files on IBM WebSphere applications.
-  ```
-  ./bin/transformationadvisor -w <WEBSPHERE_HOME_DIR> -p <PROFILE_NAME> <WSADMIN_USER> <WSADMIN_PASSWORD> -no-version-check
-  ```
+```bash
+tar xvfz transformationadvisor-2.1_Linux_example.tgz
+```
 
-## 4. Upload results, if necessary
+Finally, go to the Data Collector directory.
 
-If there is a connection between your system and your new collection, the Data Collector will send your application data for you. You can see the results and continue with the following section:
-[View the recommendations and cost estimates](#5-view-the-recommendations-and-cost-estimates).
+```bash
+cd transformationadvisor-2.1
+```
+
+### 3.3 Run the Data Collector
+
+To start the analysis of applications (.jar, .ear, and .war files) on a specific WebSphere Application Server instance run the `transformationadvisor` command. For example:
+
+```bash
+./bin/transformationadvisor -w /opt/IBM/WebSphere/AppServer -p AppSrv01
+```
+
+## 4. Upload results
+
+If there is a connection between your WebSphere system and the Transformation Advisor then the results will be uploaded automatically. Proceed to the [Next section: "View recommendations"](#5-view-recommendations).
 
 If there is no connection, the Data Collector will return a .zip file containing your application data. Use the `Upload data` option to upload the .zip file(s).
 
@@ -128,11 +132,11 @@ If there is no connection, the Data Collector will return a .zip file containing
 
 * Use the `Upload` button to upload the files.
 
-## 5. View the recommendations and cost estimates
+## 5. View recommendations
 
-Once the Data Collector has completed and uploaded results, it should display a screen similar to that shown below. Please be aware that any cost estimates displayed by the tool are high-level estimates only and may vary widely based on skills and other factors not considered by the tool.
+Once the Data Collector has uploaded its results you will be able to view the analysis in the Transformation Advisor project's console. *Note that the cost estimates displayed by the tool are high-level estimates and may vary widely based on skills and other factors not considered by the tool.*
 
-> Note: You can use the `Advanced Settings` gear icon to change the `Dev cost multiplier` and `Overhead cost` and adjust the estimates for your team.
+> **TIP**: You can use the `Advanced Settings` "gear" icon to change the `Dev cost multiplier` and `Overhead cost` and adjust the estimates for your team.
 
 ![recommendations](doc/source/images/recommendations.png)
 
@@ -187,165 +191,158 @@ The binary scanner has an inventory report that helps you examine what’s in yo
 
 ![inventory](doc/source/images/inventory.png)
 
-## 6. Complete your migration bundle
+## 6. Complete the migration bundle
 
-We will generate a migration bundle and move it to a GitHub repo. 
-
-### Create a GitHub repo
-
-Login to [GitHub](https://github.com). Create a new repository `migrated-app`.
-
-On the TA console, now select `View migration plan` for the application you wish to migrate.
+In this step we will use Transformation Advisor to generate a migration bundle that includes code to build and deploy our application. From the Transformation Advisor console click on the context menu for the application you want to migrate and choose the `View migration plan` option.
 
 ![add_dependencies](doc/source/images/plan.png)
 
-It will show you the `Migration Bundle`. If you wish to use the "Accelerator for Teams Collection" skip the next section.
+### 6.1 Create the bundle
 
-### 6.1 Build the bundle without Accelerator for Teams Collection
+In the `Migration bundle` screen choose the following options:
 
-In the `Migration bundle` screen, un-select the `Use the Accelerator for Teams Collection` option. Enter the url of the GitHub repo `migrated-app` we created earlier for `Git repository`. Enter  the `username` and `password` for the GitHub repo, and click `Send to Git` button.
+* **Build type**: Choose the **Binary** option
+* **Use the Accelerator for Teams Collection**: Choose **Don't use**
+* **Application dependencies**: Choose **Manual upload**
+* **Uploaded files**: Upload [`mod-resorts.jar`](data/examples/modresorts-1.0.war)
+* Choose to **Download** the bundle locally.
 
-![Reg migration bundle](doc/source/images/send_reg_git.png)
+![migration bundle](doc/source/images/ta-binary.png)
 
+Transformation Advisor will automatically create several artifacts needed to get your application running in a Liberty container on an OpenShift cluster. This includes a `Dockerfile`, a Liberty `server.xml` configuration file, and other Kubernetes CRDs.
 
+### 6.2 Modifying the migration bundle
 
-Transformation Advisor will automatically populate the artifacts you need to get your application deployed and running in a Liberty container on OpenShift Cluster, including...
+Once the bundle is unzipped it should have the following structure:
 
-* server.xml 
-* pom.xml
-* Dockerfile
-* Operator Resources
+```ini
+.
+├── Dockerfile
+├── operator
+│   ├── application
+│   │   ├── application-cr.yaml
+│   │   └── application-crd.yaml
+│   └── deploy
+│       ├── operator.yaml
+│       ├── role.yaml
+│       ├── role_binding.yaml
+│       └── service_account.yaml
+├── pom.xml
+└── src
+    └── main
+        ├── liberty
+        │   ├── config
+        │   │   └── server.xml
+        │   └── lib
+        └── webapp
+            ├── WEB-INF
+            │   └── web.xml
+            └── index.html
+```
 
+> **IMPORTANT**: Navigate to `src/main/liberty/config` and update the `server.xml` file by commenting out the `webApplication` element by using the `<!--` and `-->` convention.
 
-### 6.2 Build the bundle with Accelerator for Teams Collection
+**Optionally**, you can create a new repo to save this code. If you're using [GitHub](https://github.com) then run the below commands to push the source files up.
 
-In the `Migration bundle` screen, un-select the `Use the Accelerator for Teams Collection` option. Enter the url of the GitHub repo `migrated-app` we created earlier for `Git repository`. Enter  the `username` and `password` for the GitHub repo, and click `Send to Git` button.
+```bash
+git add -A
+git commit -m "Add source code files"
+git push
+```
 
-![Acc migration bundle](doc/source/images/send_acc_git.png)
+*For an example repo, check out <https://github.com/stevemar/migrated-mod-resorts>.*
 
+## 7. Test the application locally
 
-Transformation Advisor will automatically populate the artifacts you need to get your application deployed and running in a Liberty container on OpenShift Cluster, including...
+Before pushing our application to OpenShift we can build and run it locally. To build it use `docker build`.
 
-* appsody-config.yaml
-* app-deploy.yaml
-* pom.xml
-* server.xml
+```bash
+docker build -t migrated-mod-resorts:v1 .
+```
 
-### 6.3 Add sources to the migration bundle
+And to run it locally, use `docker run`.
 
-Clone this repo by running the below command:
- ```
- git clone https://github.com/IBM/migrate-app-to-openshift-using-cp4a
- ```
-This creates a folder `migrate-app-to-openshift-using-cp4a` with all the contents from the repo.
+```bash
+docker run -p 9080:9080 migrated-mod-resorts:v1
+```
 
-Clone the `migrated-app` repo you created earlier in your GitHub account:
- ```
- git clone https://github.com/<username>/migrated-app
- ```
-This creates a folder `migrated-app` with all the contents from the repo.
+Opening a browser to `localhost:9080/resorts` should show the application running.
 
-Let us now copy the sources and dependencies to the `migrated-app` folder:
-- Copy and merge the contents of folder `migrate-app-to-openshift-using-cp4a/src` to `migrated_app/src` folder. 
-- Copy and merge the contents from the folder `migrate-app-to-openshift-using-cp4a/WebContent` to `migrated_app/src/main/webapp`.
-- Copy the file pom.xml from `migrate-app-to-openshift-using-cp4a` to `migrated-app`. It will replace the `pom.xml` that is under `migrated_app`. Modify the configuration for the maven-war-plugin in the pom.xml as shown below:
-  ```
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-war-plugin</artifactId>
-          <version>2.6</version>
-          <configuration>
-            <failOnMissingWebXml>false</failOnMissingWebXml>
-            <packagingExcludes>pom.xml</packagingExcludes>
-            <outputDirectory>target</outputDirectory>
-          </configuration>
-        </plugin>
-  ```
-- Modify the file location attribute of the application tag in the file `migrated_app/src/main/liberty/config/server.xml` as shown below:
-  ```
-  <application id="modresorts" location="modresorts-1.0.war" name="modresorts-1_0_war" type="war"/>
-  ```
+**Optionally**, create a new repository on an image registry, like [DockerHub](https://hub.docker.com/), and run the command below to push your image.
 
-Run the below commands to push the sourcs to the `migrated-app` GitHub repo.
- ```
- git add *
- git commit -m "Add source code files"
- git push
- ```
+```bash
+docker build -t <YOUR_DOCKERHUB_USERNAME>/migrated-mod-resorts:v1 .
+docker push <YOUR_DOCKERHUB_USERNAME>/migrated-mod-resorts:v1
+```
 
-Now the migration bundle is complete, and is ready to be deployed on IBM Cloud Pak for Applications.
+*For an example image, check out <https://hub.docker.com/r/stevemar/migrated-mod-resorts>.*
 
+## 8. Deploy the application to OpenShift
 
-## 7. Deploy your application on ICP4A
+The final part of our journey is to deploy the application to Red Hat OpenShift.
 
-If you are using the "Accelerator for Teams Collection" skip the next section.
+### 8.1 Access the OpenShift Cluster using the `oc` CLI
 
-### 7.1 Deploy without Accelerator for Teams Collection
-
-***Login to IBM Managed OpenShift Cluster using CLI***
-
-Go to `IBM Cloud Dashboard > Clusters > Click on your OpenShift Cluster > OpenShift web console` as shown.
+To find your OpenShift cluster go to the [Kubernetes Cluster List](https://cloud.ibm.com/kubernetes/clusters) or from the IBM Cloud console go to `Clusters` > `Your OpenShift Cluster` > `OpenShift web console` as shown.
 
 ![openshift-web-console](doc/source/images/openshift-web-console.png)
 
-On web console, click the menu in the upper right corner (the label contains your email address), and select Copy Login Command. Click on Display token, copy the login command and paste the command into your terminal window. 
+From the OpenShift web console click the menu in the upper right corner (the label contains your email address), and select `Copy Login Command`. Click on `Display token` and paste the command into a terminal session. For example:
 
-```
-   $ oc login --token=xxxx --server=https://xxxx.containers.cloud.ibm.com:xxx
-   
-   # Create a new project to run your application
-   $ oc new-project <project-name>
+```bash
+oc login --token=xxxx --server=https://xxxx.containers.cloud.ibm.com:xxx
 ```
 
- #### Deploy the app using Github repo
- 
- Run the following commands to create an application using the Github repository and to expose it as a service.
- 
- ```
-   $ oc new-app <github-repo-url> --name=modapp  ## wait for this command to complete
-   
-   $ oc status ## to check the status of the previous command and wait till it says "deployment #1 deployed..."
-   
-   $ oc expose svc/modapp  ## this command exposes service after creating app 
-   
-   # Verify the pods and services
-   $ oc get pods       ## it will show a pod running with modapp-openshift-** name
-   $ oc get services   ## it will show a service running with modapp-openshift name
- ```
+Next create a new project to run your application
 
-### 7.2 Deploy with Accelerator for Teams Collection
+```bash
+oc new-project migrated-mod-resorts
+```
 
-Refer to sections [section 8](https://github.com/IBM/build-deploy-cloud-native-application-using-cp4a#8-create-token-for-your-github) and [section 9](https://github.com/IBM/build-deploy-cloud-native-application-using-cp4a#9-configure-and-execute-tekton-pipeline) to configure and execute a `Tekton` pipeline to deploy the application.
+### 8.2 Deploy the new bundle
 
+Run the `oc new-app` command to deploy an application. Applications can be deployed by referencing a git repository or image registry. The command below find the containerized application on a public DockerHub account.
 
-### 7.3 Access the migrated app
+```bash
+$ oc new-app stevemar/migrated-mod-resorts:v1
+# oc new-app <YOUR_DOCKERHUB_USERNAME>/migrated-mod-resorts:v1
+# oc new-app <YOUR_GITHUB_REPO>
+```
 
-   To access the migrated app on OpenShift, get the URL of the app from OpenShift web console.
-   
-   `OpenShift Web Console > <Go to your project>`
-   
-   Or run the following command to get the route of your deployed application.
-   
-   ```
-   $ oc get routes <namespace-name>
-   ```
-   
-   Open the noted url by adding the "/resorts" context path to see the below page:
-   ![resorts](doc/source/images/resorts.png)
+Run the commands to below to check the status of the deployment. When the `oc status` command returns a positive message then run the `oc expose` command to make the application publicly visible.
 
+```bash
+$ oc status ## to check the status of the previous command and wait till it says "deployment #1 deployed..."
+
+$ oc expose svc/migrated-mod-resorts  ## this command exposes service after creating app
+
+# Verify the pods and services
+$ oc get pods       ## it will show a pod running with modapp-openshift-** name
+$ oc get services   ## it will show a service running with modapp-openshift name
+```
+
+### 8.3 Access the migrated app
+
+To get the URL of the migrated application run the `oc get routes` command.
+
+```bash
+oc get routes
+```
+
+Open a browser, copy and paste the URL, and add a `/resorts` to the end of the path to view the migrated application.
+
+![resorts](doc/source/images/resorts.png)
 
 ## Learn More
 
+* [Cloud Enabled Use Case: App Modernization Journey Part 2 - Replatform](https://www.ibm.com/cloud/garage/dte/tutorial/move-prem-websphere-app-cloud-transformation-advisor)
 * [Build a secure microservices based banking application](https://developer.ibm.com/patterns/build-a-secure-microservices-based-application-with-transactional-flows/)
 * [Java EE Application Modernization with OpenShift](https://developer.ibm.com/patterns/jee-app-modernization-with-openshift/)
 * [Learn more about IBM Cloud Pak for Application](https://developer.ibm.com/series/ibm-cloud-pak-for-applications-video-series/)
 * [More about Transformation Advisor](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html)
 
-<!-- keep this -->
 ## License
 
 This code pattern is licensed under the Apache Software License, Version 2. Separate third-party code objects invoked within this code pattern are licensed by their respective providers pursuant to their own separate licenses. Contributions are subject to the [Developer Certificate of Origin, Version 1.1 (DCO)](https://developercertificate.org/) and the [Apache Software License, Version 2](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
 [Apache Software License (ASL) FAQ](https://www.apache.org/foundation/license-faq.html#WhatDoesItMEAN)
-
-
