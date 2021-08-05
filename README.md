@@ -35,7 +35,7 @@ When the reader has completed this code pattern, they will understand how to:
 
 ## Steps
 
-1. [Install IBM Cloud Pak for Applications](#1-install-ibm-cloud-pak-for-applications)
+1. [Install IBM Cloud Transformation Advisor](#1-install-ibm-cloud-transformation-advisor)
 2. [Launch Transformation Advisor](#2-launch-transformation-advisor)
 3. [Run the Data Collector](#3-run-the-data-collector)
 4. [Upload results](#4-upload-results)
@@ -44,27 +44,23 @@ When the reader has completed this code pattern, they will understand how to:
 7. [Test the application locally](7-test-the-application-locally)
 8. [Deploy the application to OpenShift](#8-deploy-your-application-on-icp4a)
 
-## 1. Install IBM Cloud Pak for Applications
+## 1. Install IBM Cloud Transformation Advisor
 
-Please refer to the [YouTube video](https://www.youtube.com/watch?v=gBI0ApHUFSs) below to install [IBM Cloud Pak for Applications](https://cloud.ibm.com/catalog/content/ibm-cp-applications-b4fbe4b9-a9de-406a-94de-5e0c7dc20bf7-global) on an IBM managed Red Hat OpenShift cluster.
+Please refer to the [deployment options](https://www.ibm.com/docs/en/cta?topic=started-deployment-options) to install [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor).
 
-[![CP4Apps Install Video](https://img.youtube.com/vi/gBI0ApHUFSs/0.jpg)](https://www.youtube.com/watch?v=gBI0ApHUFSs)
-
-Refer to the [IBM Cloud Pak for Applications Documentation](https://www.ibm.com/support/knowledgecenter/SSCSJL_4.1.x/install-icpa-cli.html) for instructions on how to install "IBM Cloud Pak for Applications" on a non-managed Red Hat OpenShift cluster.
+This code pattern uses the transformation advisor which is installed on a Red Hat OpenShift cluster via operator. After installation of the operator, you can create its service instance by following the instructions [here](https://www.ibm.com/docs/en/cta?topic=started-operator-install-ocp).
 
 ## 2. Launch Transformation Advisor
 
-As part of IBM Cloud Pak for Applications, Transformation Advisor is a tool that helps businesses modernize and migrate their applications from on-premises environments to the cloud. Refer to the [Transformation Advisor Documentation](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html) to learn more about it. To launch Transformation Advisor perform the following steps:
+Transformation Advisor is a tool that helps businesses modernize and migrate their applications from on-premises environments to the cloud. Refer to the [Transformation Advisor Documentation](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html) to learn more about it. To launch Transformation Advisor perform the following steps:
 
-The from navigation bar of the OpenShift console Open click on the `Cloud Pak Console` option.
+Go to `OpenShift Web Console > Networking > Routes` as shown.
 
-![open_cloudpak](doc/source/images/open_cloudpak.png)
+![access-ta-route](doc/source/images/access-ta-route.png)
 
-Choose to launch `Transformation Advisor`
+Click on the location of the `ui-route`.
 
-![open_ta](doc/source/images/open_ta.png)
-
-On the welcome screen, click the `+` to add a workspace.
+On the welcome screen, click the `Create new +` to add a workspace.
 
 ![welcome_to_ta](doc/source/images/welcome_to_ta.png)
 
@@ -76,6 +72,10 @@ You will then be asked to enter a collection name. This is an opportunity for yo
 
 ![new_collection](doc/source/images/new_collection.png)
 
+Click `create`. It will take you to the data collector.
+
+![data-collector](doc/source/images/data-collector.png)
+
 ## 3. Run the Data Collector
 
 > **NOTE**: If you do not wish to run the Data Collector on your own WebSphere environment you can use the sample files we saved in [data/examples](data/examples) folder. Skip to the [Next section: "Upload results"](#4-upload-results) to continue.
@@ -86,7 +86,9 @@ The Data Collector identifies which profiles are associated with the WebSphere i
 
 ### 3.1 Download the Data Collector
 
-From your Transformation Advisor's project you will see an option to download the Data Collector. Click on `Data Collector` to start downloaing the zip file. Choose a version that is compatible with your target server’s operating system.
+From your Transformation Advisor's project you will see an option to download the Data Collector. Click on `Download`. It will take you to a new page which has instructions to download, install and run the data collector.
+
+To download the data collector, select the appropriate `source operating system` and then `download` to start downloaing the zip file as shown below.
 
 ![dc_download](doc/source/images/dc_download.png)
 
@@ -94,22 +96,22 @@ From your Transformation Advisor's project you will see an option to download th
 
 > **WARNING:** The Data Collector is likely to consume a significant amount of resources while gathering data. Therefore, we recommend you run the tool in a pre-production environment. Depending on the number, size and complexity of your applications the Data Collector may take quite some time to execute and upload results.
 
-Once the Data Collector is downloaded locally, move the zip file from your local machine to your target server. You can do this in many ways, below is just one suggestion.
+Once the Data Collector is downloaded locally, move the zip file from your local machine to your server where your WAS application is running. You can do this in many ways, below is just one suggestion.
 
 ```bash
-sftp user@hostname <<< $'put transformationadvisor-2.1_Linux_example.tgz'
+sftp user@hostname <<< $'put transformationadvisor-Linux_appmod_coll1.tgz'
 ```
 
 Unzip the file. Ensure the unzipped file is in a directory where you have read, write, and execute access.
 
 ```bash
-tar xvfz transformationadvisor-2.1_Linux_example.tgz
+tar xvfz transformationadvisor-Linux_appmod_coll1.tgz
 ```
 
 Finally, go to the Data Collector directory.
 
 ```bash
-cd transformationadvisor-2.1
+cd transformationadvisor*
 ```
 
 ### 3.3 Run the Data Collector
