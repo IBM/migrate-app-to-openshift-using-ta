@@ -116,11 +116,18 @@ cd transformationadvisor*
 
 ### 3.3 Run the Data Collector
 
-To start the analysis of applications (.jar, .ear, and .war files) on a specific WebSphere Application Server instance run the `transformationadvisor` command. For example:
+The command to run the data collector depends on the domain and also what do you want to analyze. Go to the section `Run Tool`, select `domain` and `analysis of` appropriately. It will generate the command for you to run th data collector as shown. 
+
+![run_tool_command](doc/source/images/run-tool-command.png)
+
+To start the analysis of applications (.ear, and .war files) on a specific WebSphere Application Server instance run the `transformationadvisor` command as below:
 
 ```bash
-./bin/transformationadvisor -w /opt/IBM/WebSphere/AppServer -p AppSrv01
+./bin/transformationadvisor -o <WebSphere apps outside location of the .ear and/or .war files>
+**./bin/transformationadvisor -w /opt/IBM/WebSphere/AppServer -p AppSrv01**
 ```
+
+The data collector will take some time to run. During this process, you can keep track of its progress by checking your command line.
 
 ## 4. Upload results
 
@@ -133,6 +140,8 @@ If there is no connection, the Data Collector will return a .zip file containing
 * Copy the zip file(s) to your local system and select them using the `Drop or Add File` button.
 
 * Use the `Upload` button to upload the files.
+
+![data-collector-upload](doc/source/images/data-collector-upload.png)
 
 ## 5. View recommendations
 
