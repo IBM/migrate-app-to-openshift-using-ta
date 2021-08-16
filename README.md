@@ -120,11 +120,10 @@ The command to run the data collector depends on the domain and also what do you
 
 ![run_tool_command](doc/source/images/run-tool-command.png)
 
-To start the analysis of applications (.ear, and .war files) on a specific WebSphere Application Server instance run the `transformationadvisor` command as below:
+To start the analysis of applications and its configuration on a specific WebSphere Application Server instance run the `transformationadvisor` command as below:
 
 ```bash
-./bin/transformationadvisor -o <WebSphere apps outside location of the .ear and/or .war files>
-**./bin/transformationadvisor -w /opt/IBM/WebSphere/AppServer -p AppSrv01**
+./bin/transformationadvisor -w /opt/IBM/WebSphere/AppServer -p AppSrv01
 ```
 
 The data collector will take some time to run. During this process, you can keep track of its progress by checking your command line.
@@ -133,13 +132,15 @@ The data collector will take some time to run. During this process, you can keep
 
 If there is a connection between your WebSphere system and the Transformation Advisor then the results will be uploaded automatically. Proceed to the [Next section: "View recommendations"](#5-view-recommendations).
 
-If there is no connection, the Data Collector will return a .zip file containing your application data. Use the `Upload data` option to upload the .zip file(s).
+If there is no connection, then you need to provide the Data Collector output to the transformation advisor. Data Collector will return a .zip file containing your application data. Use the `Upload data` option to upload the .zip file(s).
 
 * Find the results for each profile. These are zip file(s) created by the Data Collector with the same name as the profile. You will find the zip file(s) in the transformationadvisor directory of the Data Collector.
 
-* Copy the zip file(s) to your local system and select them using the `Drop or Add File` button.
+* Copy the zip file(s) to your local system.
 
-* Use the `Upload` button to upload the files.
+* Go to transformation advisor. Navigate to your collection and click `Upload`.
+
+* Select the zip file(s) using the `Drop or Add File` button and use the `Upload` button to upload the files.
 
 ![data-collector-upload](doc/source/images/data-collector-upload.png)
 
@@ -147,18 +148,18 @@ If there is no connection, the Data Collector will return a .zip file containing
 
 Once the Data Collector has uploaded its results you will be able to view the analysis in the Transformation Advisor project's console. *Note that the cost estimates displayed by the tool are high-level estimates and may vary widely based on skills and other factors not considered by the tool.*
 
-> **TIP**: You can use the `Advanced Settings` "gear" icon to change the `Dev cost multiplier` and `Overhead cost` and adjust the estimates for your team.
+> **TIP**: You can use the `Advanced Settings` "gear" icon to change the `Dev cost multiplier` and adjust the estimates for your team.
 
 ![recommendations](doc/source/images/recommendations.png)
 
-The recommendations tab shows you a table with a summary row for each application found on your application server. Each row contains the following information:
+The recommendations page shows you a table with a summary row for each application found on your application server. Each row contains the following information:
 
 | Column | Description |
 | ------ | ----------- |
 | | *A drop-down arrow lets you expand the summary row to see the analysis for other targets.* |
 | | *Alert icons may appear to indicate apps that are incompatible with a target.* |
 | Application | *The name of the EAR/WAR file found on the application server.* |
-| | *An indicator to show how complex Transformation Advisor considers this application to be if you were to migrate it to the cloud.* |
+| Complexity | *An indicator to show how complex Transformation Advisor considers this application to be if you were to migrate it to the cloud.* |
 | Tech match | *This is a percentage and if less than 100% it indicates that there may be some technologies that are not suitable for the recommended platform. You should investigate the details and ensure your application is actually using the technologies.* |
 | Dependencies | *This shows potential external dependencies detected during the scan. Work may be needed to configure access to these external dependencies.* |
 | Issues | *This indicates the number and severity of potential issues migrating the application.* |
@@ -168,7 +169,7 @@ The recommendations tab shows you a table with a summary row for each applicatio
 
 Each column in the table is sortable. There is also a `Search items` box which allows you to filter out rows of data. You can use the `+` symbol to see only rows that match all your terms (e.g., `Liberty+Simple`). You can filter by complexity using the filter button.
 
-Clicking on your application name will take you to more information about the discovered `Complexity` and `Application Details`. For starters, the complexity rating is explained for you.
+Clicking on your application name will take you to more information about the discovered `Complexity` and `Issue Details`. For starters, the complexity rating is explained for you.
 
 ![complexity](doc/source/images/complexity.png)
 
@@ -180,7 +181,7 @@ There will be additional sections to show any technology issues, external depend
 
 Scroll to the end of the recommendations screen to find three links to further detailed reports.
 
-![screen11](doc/source/images/screen11.png)
+![additional_reports](doc/source/images/additional_reports.png)
 
 The three reports are described as follows:
 
@@ -206,14 +207,13 @@ The binary scanner has an inventory report that helps you examine what’s in yo
 
 In this step we will use Transformation Advisor to generate a migration bundle that includes code to build and deploy our application. From the Transformation Advisor console click on the context menu for the application you want to migrate and choose the `View migration plan` option.
 
-![add_dependencies](doc/source/images/plan.png)
+![migration_plan](doc/source/images/migration-plan.png)
 
 ### 6.1 Create the bundle
 
-In the `Migration bundle` screen choose the following options:
+In the `Migration plan` screen choose the following options:
 
 * **Build type**: Choose the **Binary** option
-* **Use the Accelerator for Teams Collection**: Choose **Don't use**
 * **Application dependencies**: Choose **Manual upload**
 * **Uploaded files**: Upload [`mod-resorts.jar`](data/examples/modresorts-1.0.war)
 * Choose to **Download** the bundle locally.
