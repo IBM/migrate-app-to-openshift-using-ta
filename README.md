@@ -1,30 +1,30 @@
-# Transform your traditional on-premises app and deploy it as a containerized app on a public cloud
+# Transform your traditional on-premises app and deploy it as a containerized app
 
-> **Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster**
+> **Modernize Apps using IBM Cloud Transformation Advisor on the IBM managed OpenShift cluster**
 
-In this code pattern, we will use Transformation Advisor on IBM Cloud Pak for Applications to evaluate an on-premises traditional WebSphere application. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on IBM Cloud Pak for Applications running on the IBM managed OpenShift. *A sample web app is provided to demonstrate migration from on-premises to the IBM Cloud Pak for Applications.*
+In this code pattern, we use [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor) tool, which is part of [WebSphere Hybrid Edition](https://www.ibm.com/cloud/websphere-hybrid-edition), to evaluate an on-premises traditional WebSphere application. We use IBM Cloud Transformation Advisor to analyze the running application, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on the IBM managed OpenShift. *A sample web app is provided to demonstrate migration from on-premises to the OpenShift.*
 
 When the reader has completed this code pattern, they will understand how to:
 
-* Access IBM Cloud Pak for Applications on the IBM managed OpenShift cluster (CP4Apps)
+* Access IBM Cloud Transofrmation Advisor on the IBM managed OpenShift cluster
 * Use Transformation Advisor to create a custom Data Collector
 * Run the custom Data Collector to analyze a traditional WebSphere application
 * Review the Transformation Advisor reports to see migration complexity, cost, and recommendations
 * Generate artifacts to containerize the application
-* Move the modernized application to IBM Cloud Pak for Applications on IBM managed OpenShift Cluster using a generated migration bundle
+* Move the modernized application to IBM managed OpenShift Cluster using a generated migration bundle
 
 ## Flow
 
 ![architecture](doc/source/images/architecture.png)
 
-1. Developer accesses IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster.
-2. Developer downloads a custom Data Collector from IBM Transformation Advisor
-3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application(to be migrated) is running
-4. Data Collector analysis is uploaded (automatically or manually)
-5. Developer reviews recommendations in Transformation Advisor and creates a migration bundle
-6. Developer downloads migration bundle
-7. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
-8. Developer creates an app using the pushed image and runs the containerized app
+1. Developer accesses IBM Transformation Advisor on the IBM managed OpenShift cluster.
+2. Developer downloads a custom Data Collector from IBM Transformation Advisor.
+3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application(to be migrated) is running.
+4. Data Collector analysis is uploaded (automatically or manually).
+5. Developer reviews recommendations in Transformation Advisor and creates a migration bundle.
+6. Developer downloads migration bundle.
+7. Developer uses Docker to build an image and upload it to image registry.
+8. Developer creates an app using the pushed image and runs the containerized app.
 
 ## Pre-requisites
 
@@ -164,8 +164,9 @@ The recommendations page shows you a table with a summary row for each applicati
 | Dependencies | *This shows potential external dependencies detected during the scan. Work may be needed to configure access to these external dependencies.* |
 | Issues | *This indicates the number and severity of potential issues migrating the application.* |
 | Est. dev cost | *This is an estimate in days of the development effort to perform the migration.* |
-| Total effort | *This is the total estimate in days of the overhead and development costs in migration up to the point of functional testing.* |
 | | *The `Migration plan` button will take you to the Migration page for the application.* |
+
+<!-- | Total effort | *This is the total estimate in days of the overhead and development costs in migration up to the point of functional testing.* | -->
 
 Each column in the table is sortable. There is also a `Search items` box which allows you to filter out rows of data. You can use the `+` symbol to see only rows that match all your terms (e.g., `Liberty+Simple`). You can filter by complexity using the filter button.
 
@@ -220,7 +221,7 @@ In the `Migration plan` screen choose the following options:
 
 ![migration bundle](doc/source/images/ta-binary.png)
 
-Transformation Advisor will automatically create several artifacts needed to get your application running in a Liberty container on an OpenShift cluster. This includes a `Dockerfile`, a Liberty `server.xml` configuration file, and other Kubernetes CRDs.
+Transformation Advisor will automatically create several artifacts needed to get your application running in a Liberty container on an OpenShift cluster. This includes a `Dockerfile`, a Liberty `server.xml` configuration file, and other custom resources (CR).
 
 ### 6.2 Modifying the migration bundle
 
@@ -229,29 +230,23 @@ Once the bundle is unzipped it should have the following structure:
 ```ini
 .
 ├── Dockerfile
-├── operator
-│   ├── application
-│   │   ├── application-cr.yaml
-│   │   └── application-crd.yaml
-│   └── deploy
-│       ├── operator.yaml
-│       ├── role.yaml
-│       ├── role_binding.yaml
-│       └── service_account.yaml
+├── READ_THIS_FIRST.md
+├── deploy
+│   ├── application-cr.yaml
 ├── pom.xml
-└── src
-    └── main
-        ├── liberty
-        │   ├── config
-        │   │   └── server.xml
-        │   └── lib
-        └── webapp
-            ├── WEB-INF
-            │   └── web.xml
-            └── index.html
+├── src
+│   └── main
+│       ├── liberty
+│       │   ├── config
+│       │   │   └── server.xml
+│       │   └── lib
+│       └── webapp
+│           ├── WEB-INF
+│           │   └── web.xml
+│           └── index.html
+├── target
+│   ├── modresorts-1.0.war
 ```
-
-> **IMPORTANT**: Navigate to `src/main/liberty/config` and update the `server.xml` file by commenting out the `webApplication` element by using the `<!--` and `-->` convention.
 
 **Optionally**, you can create a new repo to save this code. If you're using [GitHub](https://github.com) then run the below commands to push the source files up.
 
@@ -348,8 +343,6 @@ Open a browser, copy and paste the URL, and add a `/resorts` to the end of the p
 
 * [Cloud Enabled Use Case: App Modernization Journey Part 2 - Replatform](https://www.ibm.com/cloud/garage/dte/tutorial/move-prem-websphere-app-cloud-transformation-advisor)
 * [Build a secure microservices based banking application](https://developer.ibm.com/patterns/build-a-secure-microservices-based-application-with-transactional-flows/)
-* [Java EE Application Modernization with OpenShift](https://developer.ibm.com/patterns/jee-app-modernization-with-openshift/)
-* [Learn more about IBM Cloud Pak for Application](https://developer.ibm.com/series/ibm-cloud-pak-for-applications-video-series/)
 * [More about Transformation Advisor](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html)
 
 ## License
