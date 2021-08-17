@@ -1,41 +1,40 @@
-# Transform your traditional on-premises app and deploy it as a containerized app on a public cloud
+# Transform your traditional on-premises app and deploy it as a containerized app on Cloud
 
-> **Modernize Apps using IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster**
+> **Modernize your Applications using IBM Cloud Transformation Advisor on an OpenShift cluster**
 
-In this code pattern, we will use Transformation Advisor on IBM Cloud Pak for Applications to evaluate an on-premises traditional WebSphere application. We'll use Transformation Advisor, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on IBM Cloud Pak for Applications running on the IBM managed OpenShift. *A sample web app is provided to demonstrate migration from on-premises to the IBM Cloud Pak for Applications.*
+In this code pattern, we use [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor) tool, which is part of [WebSphere Hybrid Edition](https://www.ibm.com/cloud/websphere-hybrid-edition), to evaluate an on-premises traditional WebSphere application. We use IBM Cloud Transformation Advisor to analyze the running application, download the generated migration bundle and use its recommendations to deploy that application in a Liberty container running on OpenShift. *A sample web app is provided to demonstrate migration from on-premises to the OpenShift.*
 
 When the reader has completed this code pattern, they will understand how to:
 
-* Access IBM Cloud Pak for Applications on the IBM managed OpenShift cluster (CP4Apps)
+* Access IBM Cloud Transformation Advisor on the OpenShift cluster
 * Use Transformation Advisor to create a custom Data Collector
 * Run the custom Data Collector to analyze a traditional WebSphere application
 * Review the Transformation Advisor reports to see migration complexity, cost, and recommendations
 * Generate artifacts to containerize the application
-* Move the modernized application to IBM Cloud Pak for Applications on IBM managed OpenShift Cluster using a generated migration bundle
+* Move the modernized application to the OpenShift Cluster using a generated migration bundle
 
 ## Flow
 
 ![architecture](doc/source/images/architecture.png)
 
-1. Developer accesses IBM Transformation Advisor on IBM Cloud Pak for Applications on the IBM managed OpenShift cluster.
-2. Developer downloads a custom Data Collector from IBM Transformation Advisor
-3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application(to be migrated) is running
-4. Data Collector analysis is uploaded (automatically or manually)
-5. Developer reviews recommendations in Transformation Advisor and creates a migration bundle
-6. Developer downloads migration bundle
-7. Developer uses Docker to build an image and upload it to OpenShift Docker Registry
-8. Developer creates an app using the pushed image and runs the containerized app
+1. Developer accesses IBM Transformation Advisor on the OpenShift cluster.
+2. Developer downloads a custom Data Collector from IBM Transformation Advisor.
+3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application(to be migrated) is running.
+4. Data Collector analysis is uploaded (automatically or manually).
+5. Developer reviews recommendations in Transformation Advisor and creates a migration bundle.
+6. Developer downloads migration bundle.
+7. Developer deploys the containerized application using migration bundle and accesses the application on cloud.
 
 ## Pre-requisites
 
 * [IBM Cloud account](https://cloud.ibm.com/)
-* [IBM managed OpenShift Cluster instance](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift)
+* [OpenShift Cluster instance](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift)
 * [OpenShift CLI](https://cloud.ibm.com/docs/openshift?topic=openshift-openshift-cli)
 * [Docker](https://www.docker.com/)
 
 ## Steps
 
-1. [Install IBM Cloud Pak for Applications](#1-install-ibm-cloud-pak-for-applications)
+1. [Install IBM Cloud Transformation Advisor](#1-install-ibm-cloud-transformation-advisor)
 2. [Launch Transformation Advisor](#2-launch-transformation-advisor)
 3. [Run the Data Collector](#3-run-the-data-collector)
 4. [Upload results](#4-upload-results)
@@ -44,27 +43,23 @@ When the reader has completed this code pattern, they will understand how to:
 7. [Test the application locally](7-test-the-application-locally)
 8. [Deploy the application to OpenShift](#8-deploy-your-application-on-icp4a)
 
-## 1. Install IBM Cloud Pak for Applications
+## 1. Install IBM Cloud Transformation Advisor
 
-Please refer to the [YouTube video](https://www.youtube.com/watch?v=gBI0ApHUFSs) below to install [IBM Cloud Pak for Applications](https://cloud.ibm.com/catalog/content/ibm-cp-applications-b4fbe4b9-a9de-406a-94de-5e0c7dc20bf7-global) on an IBM managed Red Hat OpenShift cluster.
+Please refer to the [deployment options](https://www.ibm.com/docs/en/cta?topic=started-deployment-options) to install [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor).
 
-[![CP4Apps Install Video](https://img.youtube.com/vi/gBI0ApHUFSs/0.jpg)](https://www.youtube.com/watch?v=gBI0ApHUFSs)
-
-Refer to the [IBM Cloud Pak for Applications Documentation](https://www.ibm.com/support/knowledgecenter/SSCSJL_4.1.x/install-icpa-cli.html) for instructions on how to install "IBM Cloud Pak for Applications" on a non-managed Red Hat OpenShift cluster.
+This code pattern uses the transformation advisor which is installed on an OpenShift cluster via operator. After installation of the operator, you can create its service instance by following the instructions [here](https://www.ibm.com/docs/en/cta?topic=started-operator-install-ocp).
 
 ## 2. Launch Transformation Advisor
 
-As part of IBM Cloud Pak for Applications, Transformation Advisor is a tool that helps businesses modernize and migrate their applications from on-premises environments to the cloud. Refer to the [Transformation Advisor Documentation](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html) to learn more about it. To launch Transformation Advisor perform the following steps:
+Transformation Advisor is a tool that helps businesses modernize and migrate their applications from on-premises environments to the cloud. Refer to the [Transformation Advisor Documentation](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html) to learn more about it. To launch Transformation Advisor perform the following steps:
 
-The from navigation bar of the OpenShift console Open click on the `Cloud Pak Console` option.
+Go to `OpenShift Web Console > Networking > Routes` as shown.
 
-![open_cloudpak](doc/source/images/open_cloudpak.png)
+![access-ta-route](doc/source/images/access-ta-route.png)
 
-Choose to launch `Transformation Advisor`
+Click on the location of the `ui-route`.
 
-![open_ta](doc/source/images/open_ta.png)
-
-On the welcome screen, click the `+` to add a workspace.
+On the welcome screen, click the `Create new +` to add a workspace.
 
 ![welcome_to_ta](doc/source/images/welcome_to_ta.png)
 
@@ -76,6 +71,10 @@ You will then be asked to enter a collection name. This is an opportunity for yo
 
 ![new_collection](doc/source/images/new_collection.png)
 
+Click `create`. It will take you to the data collector.
+
+![data-collector](doc/source/images/data-collector.png)
+
 ## 3. Run the Data Collector
 
 > **NOTE**: If you do not wish to run the Data Collector on your own WebSphere environment you can use the sample files we saved in [data/examples](data/examples) folder. Skip to the [Next section: "Upload results"](#4-upload-results) to continue.
@@ -86,7 +85,9 @@ The Data Collector identifies which profiles are associated with the WebSphere i
 
 ### 3.1 Download the Data Collector
 
-From your Transformation Advisor's project you will see an option to download the Data Collector. Click on `Data Collector` to start downloaing the zip file. Choose a version that is compatible with your target server’s operating system.
+From your Transformation Advisor's project you will see an option to download the Data Collector. Click on `Download`. It will take you to a new page which has instructions to download, install and run the data collector.
+
+To download the data collector, select the appropriate `source operating system` and then `download` to start downloading the zip file as shown below.
 
 ![dc_download](doc/source/images/dc_download.png)
 
@@ -94,70 +95,81 @@ From your Transformation Advisor's project you will see an option to download th
 
 > **WARNING:** The Data Collector is likely to consume a significant amount of resources while gathering data. Therefore, we recommend you run the tool in a pre-production environment. Depending on the number, size and complexity of your applications the Data Collector may take quite some time to execute and upload results.
 
-Once the Data Collector is downloaded locally, move the zip file from your local machine to your target server. You can do this in many ways, below is just one suggestion.
+Once the Data Collector is downloaded locally, move the zip file from your local machine to your server where your WAS application is running. You can do this in many ways, below is just one suggestion.
 
 ```bash
-sftp user@hostname <<< $'put transformationadvisor-2.1_Linux_example.tgz'
+sftp user@hostname <<< $'put transformationadvisor-Linux_appmod_coll1.tgz'
 ```
 
 Unzip the file. Ensure the unzipped file is in a directory where you have read, write, and execute access.
 
 ```bash
-tar xvfz transformationadvisor-2.1_Linux_example.tgz
+tar xvfz transformationadvisor-Linux_appmod_coll1.tgz
 ```
 
 Finally, go to the Data Collector directory.
 
 ```bash
-cd transformationadvisor-2.1
+cd transformationadvisor*
 ```
 
 ### 3.3 Run the Data Collector
 
-To start the analysis of applications (.jar, .ear, and .war files) on a specific WebSphere Application Server instance run the `transformationadvisor` command. For example:
+The command to run the data collector depends on the domain and also what do you want to analyze. Go to the section `Run Tool`, select `domain` and `analysis of` appropriately. It will generate the command for you to run th data collector as shown. 
+
+![run_tool_command](doc/source/images/run-tool-command.png)
+
+To start the analysis of applications and its configuration on a specific WebSphere Application Server instance run the `transformationadvisor` command as below:
 
 ```bash
 ./bin/transformationadvisor -w /opt/IBM/WebSphere/AppServer -p AppSrv01
 ```
 
+The data collector will take some time to run. During this process, you can keep track of its progress by checking your command line.
+
 ## 4. Upload results
 
 If there is a connection between your WebSphere system and the Transformation Advisor then the results will be uploaded automatically. Proceed to the [Next section: "View recommendations"](#5-view-recommendations).
 
-If there is no connection, the Data Collector will return a .zip file containing your application data. Use the `Upload data` option to upload the .zip file(s).
+If there is no connection, then you need to provide the Data Collector output to the transformation advisor. Data Collector will return a .zip file containing your application data. Use the `Upload data` option to upload the .zip file(s).
 
 * Find the results for each profile. These are zip file(s) created by the Data Collector with the same name as the profile. You will find the zip file(s) in the transformationadvisor directory of the Data Collector.
 
-* Copy the zip file(s) to your local system and select them using the `Drop or Add File` button.
+* Copy the zip file(s) to your local system.
 
-* Use the `Upload` button to upload the files.
+* Go to transformation advisor. Navigate to your collection and click `Upload`.
+
+* Select the zip file(s) using the `Drop or Add File` button and use the `Upload` button to upload the files.
+
+![data-collector-upload](doc/source/images/data-collector-upload.png)
 
 ## 5. View recommendations
 
 Once the Data Collector has uploaded its results you will be able to view the analysis in the Transformation Advisor project's console. *Note that the cost estimates displayed by the tool are high-level estimates and may vary widely based on skills and other factors not considered by the tool.*
 
-> **TIP**: You can use the `Advanced Settings` "gear" icon to change the `Dev cost multiplier` and `Overhead cost` and adjust the estimates for your team.
+> **TIP**: You can use the `Advanced Settings` "gear" icon to change the `Dev cost multiplier` and adjust the estimates for your team.
 
 ![recommendations](doc/source/images/recommendations.png)
 
-The recommendations tab shows you a table with a summary row for each application found on your application server. Each row contains the following information:
+The recommendations page shows you a table with a summary row for each application found on your application server. Each row contains the following information:
 
 | Column | Description |
 | ------ | ----------- |
 | | *A drop-down arrow lets you expand the summary row to see the analysis for other targets.* |
 | | *Alert icons may appear to indicate apps that are incompatible with a target.* |
 | Application | *The name of the EAR/WAR file found on the application server.* |
-| | *An indicator to show how complex Transformation Advisor considers this application to be if you were to migrate it to the cloud.* |
+| Complexity | *An indicator to show how complex Transformation Advisor considers this application to be if you were to migrate it to the cloud.* |
 | Tech match | *This is a percentage and if less than 100% it indicates that there may be some technologies that are not suitable for the recommended platform. You should investigate the details and ensure your application is actually using the technologies.* |
 | Dependencies | *This shows potential external dependencies detected during the scan. Work may be needed to configure access to these external dependencies.* |
 | Issues | *This indicates the number and severity of potential issues migrating the application.* |
 | Est. dev cost | *This is an estimate in days of the development effort to perform the migration.* |
-| Total effort | *This is the total estimate in days of the overhead and development costs in migration up to the point of functional testing.* |
 | | *The `Migration plan` button will take you to the Migration page for the application.* |
+
+<!-- | Total effort | *This is the total estimate in days of the overhead and development costs in migration up to the point of functional testing.* | -->
 
 Each column in the table is sortable. There is also a `Search items` box which allows you to filter out rows of data. You can use the `+` symbol to see only rows that match all your terms (e.g., `Liberty+Simple`). You can filter by complexity using the filter button.
 
-Clicking on your application name will take you to more information about the discovered `Complexity` and `Application Details`. For starters, the complexity rating is explained for you.
+Clicking on your application name will take you to more information about the discovered `Complexity` and `Issue Details`. For starters, the complexity rating is explained for you.
 
 ![complexity](doc/source/images/complexity.png)
 
@@ -169,7 +181,7 @@ There will be additional sections to show any technology issues, external depend
 
 Scroll to the end of the recommendations screen to find three links to further detailed reports.
 
-![screen11](doc/source/images/screen11.png)
+![additional_reports](doc/source/images/additional_reports.png)
 
 The three reports are described as follows:
 
@@ -195,21 +207,20 @@ The binary scanner has an inventory report that helps you examine what’s in yo
 
 In this step we will use Transformation Advisor to generate a migration bundle that includes code to build and deploy our application. From the Transformation Advisor console click on the context menu for the application you want to migrate and choose the `View migration plan` option.
 
-![add_dependencies](doc/source/images/plan.png)
+![migration_plan](doc/source/images/migration-plan.png)
 
 ### 6.1 Create the bundle
 
-In the `Migration bundle` screen choose the following options:
+In the `Migration plan` screen choose the following options:
 
 * **Build type**: Choose the **Binary** option
-* **Use the Accelerator for Teams Collection**: Choose **Don't use**
 * **Application dependencies**: Choose **Manual upload**
-* **Uploaded files**: Upload [`mod-resorts.jar`](data/examples/modresorts-1.0.war)
+* **Uploaded files**: Upload [`modresorts-1.0.war`](data/examples/modresorts-1.0.war)
 * Choose to **Download** the bundle locally.
 
 ![migration bundle](doc/source/images/ta-binary.png)
 
-Transformation Advisor will automatically create several artifacts needed to get your application running in a Liberty container on an OpenShift cluster. This includes a `Dockerfile`, a Liberty `server.xml` configuration file, and other Kubernetes CRDs.
+Transformation Advisor will automatically create several artifacts needed to get your application running in a Liberty container on an OpenShift cluster. This includes a `Dockerfile`, a Liberty `server.xml` configuration file, and other custom resources (CR).
 
 ### 6.2 Modifying the migration bundle
 
@@ -218,29 +229,23 @@ Once the bundle is unzipped it should have the following structure:
 ```ini
 .
 ├── Dockerfile
-├── operator
-│   ├── application
-│   │   ├── application-cr.yaml
-│   │   └── application-crd.yaml
-│   └── deploy
-│       ├── operator.yaml
-│       ├── role.yaml
-│       ├── role_binding.yaml
-│       └── service_account.yaml
+├── READ_THIS_FIRST.md
+├── deploy
+│   ├── application-cr.yaml
 ├── pom.xml
-└── src
-    └── main
-        ├── liberty
-        │   ├── config
-        │   │   └── server.xml
-        │   └── lib
-        └── webapp
-            ├── WEB-INF
-            │   └── web.xml
-            └── index.html
+├── src
+│   └── main
+│       ├── liberty
+│       │   ├── config
+│       │   │   └── server.xml
+│       │   └── lib
+│       └── webapp
+│           ├── WEB-INF
+│           │   └── web.xml
+│           └── index.html
+├── target
+│   ├── modresorts-1.0.war
 ```
-
-> **IMPORTANT**: Navigate to `src/main/liberty/config` and update the `server.xml` file by commenting out the `webApplication` element by using the `<!--` and `-->` convention.
 
 **Optionally**, you can create a new repo to save this code. If you're using [GitHub](https://github.com) then run the below commands to push the source files up.
 
@@ -337,9 +342,8 @@ Open a browser, copy and paste the URL, and add a `/resorts` to the end of the p
 
 * [Cloud Enabled Use Case: App Modernization Journey Part 2 - Replatform](https://www.ibm.com/cloud/garage/dte/tutorial/move-prem-websphere-app-cloud-transformation-advisor)
 * [Build a secure microservices based banking application](https://developer.ibm.com/patterns/build-a-secure-microservices-based-application-with-transactional-flows/)
-* [Java EE Application Modernization with OpenShift](https://developer.ibm.com/patterns/jee-app-modernization-with-openshift/)
-* [Learn more about IBM Cloud Pak for Application](https://developer.ibm.com/series/ibm-cloud-pak-for-applications-video-series/)
 * [More about Transformation Advisor](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html)
+* [Migrating a Java EE 6 WebSphere app to Open Liberty on OpenShift](https://developer.ibm.com/articles/modernizing-a-traditional-websphere-app-using-transformation-advisor/)
 
 ## License
 
