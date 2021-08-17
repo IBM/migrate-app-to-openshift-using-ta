@@ -1,35 +1,35 @@
-# Transform your traditional on-premises app and deploy it as a containerized app
+# Transform your traditional on-premises app and deploy it as a containerized app on Cloud
 
-> **Modernize Apps using IBM Cloud Transformation Advisor on the IBM managed OpenShift cluster**
+> **Modernize your Applications using IBM Cloud Transformation Advisor on an OpenShift cluster**
 
-In this code pattern, we use [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor) tool, which is part of [WebSphere Hybrid Edition](https://www.ibm.com/cloud/websphere-hybrid-edition), to evaluate an on-premises traditional WebSphere application. We use IBM Cloud Transformation Advisor to analyze the running application, download the generated migration bundle and use its recommendations to deploy that app in a Liberty container running on the IBM managed OpenShift. *A sample web app is provided to demonstrate migration from on-premises to the OpenShift.*
+In this code pattern, we use [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor) tool, which is part of [WebSphere Hybrid Edition](https://www.ibm.com/cloud/websphere-hybrid-edition), to evaluate an on-premises traditional WebSphere application. We use IBM Cloud Transformation Advisor to analyze the running application, download the generated migration bundle and use its recommendations to deploy that application in a Liberty container running on OpenShift. *A sample web app is provided to demonstrate migration from on-premises to the OpenShift.*
 
 When the reader has completed this code pattern, they will understand how to:
 
-* Access IBM Cloud Transofrmation Advisor on the IBM managed OpenShift cluster
+* Access IBM Cloud Transformation Advisor on the OpenShift cluster
 * Use Transformation Advisor to create a custom Data Collector
 * Run the custom Data Collector to analyze a traditional WebSphere application
 * Review the Transformation Advisor reports to see migration complexity, cost, and recommendations
 * Generate artifacts to containerize the application
-* Move the modernized application to IBM managed OpenShift Cluster using a generated migration bundle
+* Move the modernized application to the OpenShift Cluster using a generated migration bundle
 
 ## Flow
 
 ![architecture](doc/source/images/architecture.png)
 
-1. Developer accesses IBM Transformation Advisor on the IBM managed OpenShift cluster.
+1. Developer accesses IBM Transformation Advisor on the OpenShift cluster.
 2. Developer downloads a custom Data Collector from IBM Transformation Advisor.
 3. Developer runs the Data Collector on the traditional WebSphere Application Server host where application(to be migrated) is running.
 4. Data Collector analysis is uploaded (automatically or manually).
 5. Developer reviews recommendations in Transformation Advisor and creates a migration bundle.
 6. Developer downloads migration bundle.
-7. Developer uses Docker to build an image and upload it to image registry.
+7. Developer uses Docker to build an image and upload it to an image registry.
 8. Developer creates an app using the pushed image and runs the containerized app.
 
 ## Pre-requisites
 
 * [IBM Cloud account](https://cloud.ibm.com/)
-* [IBM managed OpenShift Cluster instance](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift)
+* [OpenShift Cluster instance](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift)
 * [OpenShift CLI](https://cloud.ibm.com/docs/openshift?topic=openshift-openshift-cli)
 * [Docker](https://www.docker.com/)
 
@@ -48,7 +48,7 @@ When the reader has completed this code pattern, they will understand how to:
 
 Please refer to the [deployment options](https://www.ibm.com/docs/en/cta?topic=started-deployment-options) to install [Transformation Advisor](https://www.ibm.com/garage/method/practices/learn/ibm-transformation-advisor).
 
-This code pattern uses the transformation advisor which is installed on a Red Hat OpenShift cluster via operator. After installation of the operator, you can create its service instance by following the instructions [here](https://www.ibm.com/docs/en/cta?topic=started-operator-install-ocp).
+This code pattern uses the transformation advisor which is installed on an OpenShift cluster via operator. After installation of the operator, you can create its service instance by following the instructions [here](https://www.ibm.com/docs/en/cta?topic=started-operator-install-ocp).
 
 ## 2. Launch Transformation Advisor
 
@@ -88,7 +88,7 @@ The Data Collector identifies which profiles are associated with the WebSphere i
 
 From your Transformation Advisor's project you will see an option to download the Data Collector. Click on `Download`. It will take you to a new page which has instructions to download, install and run the data collector.
 
-To download the data collector, select the appropriate `source operating system` and then `download` to start downloaing the zip file as shown below.
+To download the data collector, select the appropriate `source operating system` and then `download` to start downloading the zip file as shown below.
 
 ![dc_download](doc/source/images/dc_download.png)
 
@@ -216,7 +216,7 @@ In the `Migration plan` screen choose the following options:
 
 * **Build type**: Choose the **Binary** option
 * **Application dependencies**: Choose **Manual upload**
-* **Uploaded files**: Upload [`mod-resorts.jar`](data/examples/modresorts-1.0.war)
+* **Uploaded files**: Upload [`modresorts-1.0.war`](data/examples/modresorts-1.0.war)
 * Choose to **Download** the bundle locally.
 
 ![migration bundle](doc/source/images/ta-binary.png)
