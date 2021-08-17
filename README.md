@@ -23,8 +23,7 @@ When the reader has completed this code pattern, they will understand how to:
 4. Data Collector analysis is uploaded (automatically or manually).
 5. Developer reviews recommendations in Transformation Advisor and creates a migration bundle.
 6. Developer downloads migration bundle.
-7. Developer uses Docker to build an image and upload it to an image registry.
-8. Developer creates an app using the pushed image and runs the containerized app.
+7. Developer deploys the containerized application using migration bundle and accesses the application on cloud.
 
 ## Pre-requisites
 
@@ -344,6 +343,7 @@ Open a browser, copy and paste the URL, and add a `/resorts` to the end of the p
 * [Cloud Enabled Use Case: App Modernization Journey Part 2 - Replatform](https://www.ibm.com/cloud/garage/dte/tutorial/move-prem-websphere-app-cloud-transformation-advisor)
 * [Build a secure microservices based banking application](https://developer.ibm.com/patterns/build-a-secure-microservices-based-application-with-transactional-flows/)
 * [More about Transformation Advisor](https://www.ibm.com/support/knowledgecenter/SS5Q6W/welcome.html)
+* [Migrating a Java EE 6 WebSphere app to Open Liberty on OpenShift](https://developer.ibm.com/articles/modernizing-a-traditional-websphere-app-using-transformation-advisor/)
 
 ## License
 
